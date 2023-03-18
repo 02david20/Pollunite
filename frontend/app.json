@@ -23,6 +23,22 @@
         },
         "web": {
             "favicon": "./assets/favicon.png"
-        }
-    }
+        },
+        "plugins": [
+            [
+              "expo-location",
+              {
+                "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+              }
+            ],
+            [
+                "expo-screen-orientation",
+                {
+                  "initialOrientation": "DEFAULT"
+                }
+              ]
+
+          ]
+    },
+    "android.config.googleMaps.apiKey": "AIzaSyBXCLq-NHW-3e66Mhhthq3d5KgVS0C96oc"
 }
