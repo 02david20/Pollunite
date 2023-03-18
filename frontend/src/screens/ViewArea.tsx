@@ -36,7 +36,7 @@ const data = [
 const ViewAreaScreen = (): JSX.Element => {
     return (
         <View className="w-full h-full">
-         <Header />
+         <Header title="Area Detail" isResolve={false} />
          <FlatList
             data={data}
             ItemSeparatorComponent={() => <View style={{width: 10, height: 10}} />}
