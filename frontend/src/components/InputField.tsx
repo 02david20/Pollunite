@@ -37,7 +37,7 @@ export default function InputReportField({
       ) : (
         <TextInput
           placeholder={label}
-          keyboardType="default"
+          keyboardType={keyboardType}
           className="flex-1 py-0"
           value={value}
           onChangeText={onChangeText}
