@@ -5,6 +5,7 @@ import * as React from 'react'
 import StartScreen from './src/screens/StartScreen'
 import LoginScreen from './src/screens/LoginScreen'
 import SignUpScreen from './src/screens/SignUpScreen'
+import ViewAreaScreen from './src/screens/ViewArea'
 
 export default function App() {
     const [visible, setVisible] = React.useState(true)
@@ -22,7 +23,7 @@ export default function App() {
 
     return (
         <View>
-            <SignUpScreen />
+            <ViewAreaScreen />
         </View>
     )
 }
