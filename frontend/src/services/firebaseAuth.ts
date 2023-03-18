@@ -19,6 +19,7 @@ const signUp = async (email: string, password: string) => {
 }
 
 export {
+    auth,
     signIn,
     signUp
 }

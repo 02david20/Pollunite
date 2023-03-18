@@ -1,8 +1,10 @@
+import app from './src/services/firebaseApp'
 import { createStackNavigator } from '@react-navigation/stack'
 import { useFonts } from 'expo-font'
 import {Text, View, Image, Pressable} from 'react-native'
 import * as React from 'react'
 import StartScreen from './src/screens/StartScreen'
+import ProfileScreen from './src/screens/ProfileScreen'
 
 export default function App() {
     const [visible, setVisible] = React.useState(true)
@@ -19,8 +21,10 @@ export default function App() {
     }
 
     return (
-        <View>
-            <StartScreen />
+        <View style={{
+            flex: 1
+        }}>
+            <ProfileScreen />
         </View>
     )
 }
