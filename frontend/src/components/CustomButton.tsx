@@ -7,13 +7,13 @@ export default function CustomButton({ label, onPress }: InputProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="bg-[#6a8caf] p-5 mb-7 rounded-md"
+      className="bg-[#4CAF50] p-3 mb-7 mx-12 rounded-md"
     >
       <Text
-        className="text-center text-[#000]"
+        className="text-center text-white"
         style={{
           // fontFamily: "MontserratRegular",
-          fontSize: 24,
+          fontSize: 20,
         }}
       >
         {label}

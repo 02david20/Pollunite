@@ -40,60 +40,48 @@ const AddGardenScreen = () => {
   const [selected, setSelected] = useState<string[]>([]);
 
   const handleSubmit = () => {
-    console.log(report, selected,image);
+    const finalReport = {...report,tags:selected,file:pickedImagePath}
+    console.log(finalReport);
   };
-  const [image, setImage] = useState(null);
+  const [pickedImagePath, setPickedImagePath] = useState("");
 
-  const pickImage:any = async () => {
-    // No permissions request is necessary for launching the image library
-    let result:any = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+  const showImagePicker = async () => {
+    // Ask the user for the permission to access the media library
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    console.log(result);
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this app to access your photos!");
+      return;
+    }
 
-    if (!result.cancelled) {
-      setImage(result.assets[0].uri);
+    const result = await ImagePicker.launchImageLibraryAsync();
+
+    if (!result.canceled) {
+      setPickedImagePath(result.assets[0].uri);
     }
   };
-  /*const handleCreateGarden = async (e) => {
-    let userInfo = await AsyncStorage.getItem("userInfo");
-    const sendingData = {
-      ...data,
-      userId: await JSON.parse(userInfo)._id,
-      topic_list: {
-        sensor: sensorList,
-        fan: fanList,
-        pump: pumpList,
-        motor: motorList,
-      },
-      boundary: [],
-    };
-    axios
-      .post(`${BASE_URL}/garden/create`, sendingData)
-      .then((res) => {
-        console.log(res.status);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }; */
+
+  const openCamera = async () => {
+    // Ask the user for the permission to access the camera
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your camera!");
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync();
+
+    if (!result.canceled) {
+      setPickedImagePath(result.assets[0].uri);
+    }
+  };
 
   return (
-    <View className="flex-1 justify-center bg-[#fff] pt-5">
+    <View className="flex-1 justify-center bg-[#fff] pt-5 w-11/12 mx-auto h-full flex-col justify-center">
       <ScrollView className="px-5 pt-5">
-        <Text
-          style={{
-            // fontFamily: "MontserratSemiBold",
-            fontSize: 38,
-            fontWeight: "500",
-            color: "#000",
-            marginBottom: 30,
-          }}
-        >
+        <Text className="font-extrabold text-4xl text-center text-[#4CAF50] mb-5 ">
           New Report
         </Text>
 
@@ -114,7 +102,7 @@ const AddGardenScreen = () => {
           onChangeText={(t: number) => {
             setReport({ ...report, lat: t });
           }}
-          keyboardType="default"
+          keyboardType="numeric"
         />
 
         <InputField
@@ -134,7 +122,7 @@ const AddGardenScreen = () => {
           onChangeText={(t: number) => {
             setReport({ ...report, lng: t });
           }}
-          keyboardType="default"
+          keyboardType="numeric"
         />
 
         <InputField
@@ -183,24 +171,48 @@ const AddGardenScreen = () => {
           )}
           selectedStyle={styles.selectedStyle}
         />
-        <View
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          <Button title="Pick an image from camera roll" onPress={pickImage} />
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={{ width: 200, height: 200 }}
-            />
-          )}
-        </View>
 
-        <CustomButton
-          label={"Create"}
-          onPress={() => {
-            handleSubmit();
-          }}
-        />
+        {
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "flex-start",
+              marginBottom: 20,
+            }}
+          >
+            <Text className="text-lg mt-2 font-bold mr-auto">Select Image</Text>
+            <View className="flex-row mt-2 justify-start w-full">
+              <TouchableOpacity
+                className="rounded-md p-3 bg-[#eae4e4] mr-5"
+                onPress={showImagePicker}
+              >
+                <Text>Open Gallery</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                className="rounded-md p-3 bg-[#eae4e4]"
+                onPress={openCamera}
+              >
+                <Text>Open Camera</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        }
+
+        {pickedImagePath !== "" && (
+          <Image
+            source={{ uri: pickedImagePath }}
+            className="w-full min-h-[300px] max-h-[600px] mb-5"
+          />
+        )}
+        {pickedImagePath && (
+          <CustomButton
+            label={"Create Report"}
+            onPress={() => {
+              handleSubmit();
+            }}
+          />
+        )}
       </ScrollView>
     </View>
   );
@@ -211,13 +223,16 @@ export default AddGardenScreen;
 const styles = StyleSheet.create({
   container: { padding: 16 },
   dropdown: {
+    marginTop: -10,
+    marginBottom: 20,
     height: 50,
     backgroundColor: "transparent",
     borderBottomColor: "gray",
     borderBottomWidth: 0.5,
   },
   placeholderStyle: {
-    fontSize: 16,
+    fontSize: 14,
+    color: "#a29f9f",
   },
   selectedTextStyle: {
     fontSize: 14,
@@ -242,6 +257,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginTop: 50,
     borderRadius: 5,
+  },
+  image: {
+    width: 400,
+    height: 300,
+    resizeMode: "cover",
   },
   buttonText: {
     fontSize: 18,
