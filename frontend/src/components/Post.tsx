@@ -1,5 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text, Pressable, Image } from 'react-native';
+import ChatIcon from '../../assets/svg/chat.svg'
+import VoteIcon from '../../assets/svg/vote_icon.svg'
+import VoteActiveIcon from '../../assets/svg/vote_active.svg'
+import ShareIcon from '../../assets/svg/share.svg'
+import LocationIcon from '../../assets/svg/location.svg'
 
 type PostSchema = {
   post: {
@@ -15,6 +20,7 @@ type PostSchema = {
 }
 const Post = ({post}: PostSchema) => {
   const [pressed, setPressed] = React.useState(false)
+  const [vote, setVote] = React.useState(true)
   return (
     <View className="w-11/12 mx-auto my-5">
         <View className="w-full flex-row justify-between mx-auto mb-2">
@@ -41,6 +47,27 @@ const Post = ({post}: PostSchema) => {
           <Image 
             source={{uri: post.img}}
             style={{ width: '100%', height: 200}} />
+        </View>
+        <View className="w-11/12 mx-auto flex-row justify-between mt-2">
+            <View className="flex-row justify-between gap-4">
+              <View className="flex-row justify-between items-center">
+                  <Pressable onPress={() => setVote(!vote)}>
+                    {vote ? <VoteActiveIcon /> : <VoteIcon />}
+                  </Pressable>
+                  <Text className="ml-2" style={vote ? {color: '#F04A4A'}: null}>62</Text>
+              </View>
+              <View className="flex-row justify-between items-center">
+                  <ChatIcon />
+                  <Text className="ml-2">125</Text>
+              </View>
+              <View className="flex-row justify-between items-center">
+                  <ShareIcon />
+                  <Text className="ml-2">30</Text>
+              </View>
+            </View>
+            <View>
+                <LocationIcon />
+            </View>
         </View>
     </View>
   );
