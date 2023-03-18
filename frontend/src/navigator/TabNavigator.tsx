@@ -9,10 +9,21 @@ import ReportScreen from "../screens/ReportScreen";
 import MapScreen from "../screens/Map";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { TabNavigatorParamList } from "./types";
+import EventDetailScreen from "../screens/EventDetailScreen";
+import { createStackNavigator } from "@react-navigation/stack";
 const Tab = createMaterialBottomTabNavigator<TabNavigatorParamList>();
+const Stack = createStackNavigator();
 
 const tabOptions: MaterialBottomTabNavigationOptions = {
   tabBarColor: "#1D192B",
+};
+const EventStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Events" component={EventScreen} />
+      <Stack.Screen name="EventDetail" component={EventDetailScreen} />
+    </Stack.Navigator>
+  );
 };
 const TabNavigator = () => {
   return (
@@ -46,7 +57,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Events"
-        component={EventScreen}
+        component={EventStack}
         options={{
           tabBarLabel: "Events",
           tabBarIcon: ({ color }) => (

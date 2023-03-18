@@ -9,8 +9,11 @@ import EventScreen from "../screens/EventScreen";
 import ReportScreen from "../screens/ReportScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { DrawerNavigatorParamList } from "./types";
+import { createStackNavigator } from "@react-navigation/stack";
+import EventDetailScreen from "../screens/EventDetailScreen";
 
 const Drawer = createDrawerNavigator<DrawerNavigatorParamList>();
+const Stack = createStackNavigator();
 
 const AppStack = () => {
   return (
@@ -28,6 +31,15 @@ const AppStack = () => {
         },
       }}
     >
+      <Drawer.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          drawerIcon: (p: any) => (
+            <MaterialCommunityIcons name="home" size={22} color={p.color} />
+          ),
+        }}
+      />
       <Drawer.Screen
         name="Home"
         component={HomeScreen}
