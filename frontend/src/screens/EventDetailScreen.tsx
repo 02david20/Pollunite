@@ -1,8 +1,18 @@
-import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
-import React, { useEffect, useLayoutEffect } from "react";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  Button,
+} from "react-native";
+import React, { useEffect, useState, useLayoutEffect } from "react";
+import NumericInput from "react-native-numeric-input";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import CustomButton from "../components/CustomButton";
+import Modal from "react-native-modal";
 
 const EventDetailScreen = ({ navigation, route }) => {
   const { id, dateStart, dateEnd, title, numParticipants, imgUrl, vouchers } =
@@ -12,6 +22,12 @@ const EventDetailScreen = ({ navigation, route }) => {
       headerShown: false,
     });
   }, []);
+  const [isModalVisible, setModalVisible] = useState<boolean>(false);
+  const [value, setValue] = useState(0);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
   return (
     <ScrollView>
       <View>
@@ -80,11 +96,63 @@ const EventDetailScreen = ({ navigation, route }) => {
             trường để giúp đỡ bảo vệ môi trường.
           </Text>
 
-          <CustomButton label="Exchange" onPress={() => {}} />
+          <CustomButton label="Exchange" onPress={toggleModal} />
+
+          <Modal
+            testID={"modal"}
+            isVisible={isModalVisible}
+            onSwipeComplete={toggleModal}
+            swipeDirection={["up", "left", "right", "down"]}
+            style={styles.view}
+          >
+            <View style={styles.content}>
+              <Text style={styles.contentTitle}>Your Current Points: 123</Text>
+              <NumericInput
+                value={value}
+                onChange={(value) => setValue(value)}
+                onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+                totalWidth={240}
+                totalHeight={50}
+                iconSize={25}
+                step={1}
+                valueType="real"
+                rounded
+                textColor="#B0228C"
+                rightButtonBackgroundColor="#EA3788"
+                leftButtonBackgroundColor="#E56B70"
+              />
+              <View className="flex-col space-between w-full items-center align-center mt-5 space-y-2">
+                <CustomButton
+                  label="Confirm"
+                  onPress={() => alert("Got exchanged " + value + " tickets")}
+                />
+                <CustomButton label="Close" onPress={toggleModal} />
+              </View>
+            </View>
+          </Modal>
         </View>
       </View>
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  view: {
+    justifyContent: "flex-end",
+    margin: 0,
+  },
+  content: {
+    backgroundColor: "white",
+    padding: 22,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+    borderColor: "rgba(0, 0, 0, 0.1)",
+  },
+  contentTitle: {
+    fontSize: 20,
+    marginBottom: 12,
+  },
+});
 
 export default EventDetailScreen;

@@ -1,5 +1,5 @@
 import { View, Text, TextInput, ScrollView } from "react-native";
-import React from "react";
+import React, {useLayoutEffect} from "react";
 import { useNavigation } from "@react-navigation/native";
 import EventList from "../components/EventList";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -7,6 +7,11 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 const EventScreen = () => {
   const navigation: any = useNavigation();
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
   return (
     <ScrollView className="pt-7 px-2">
       {/* Header */}

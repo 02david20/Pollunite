@@ -4,13 +4,14 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 
-const EventItem = ({ item,navigation }) => {
+const EventItem = ({ item, navigation }) => {
   const { id, dateStart, dateEnd, title, numParticipants, imgUrl, vouchers } =
     item;
-    console.log(navigation.getState());
   return (
     <TouchableOpacity
-      onPress={() => {navigation.navigate("EventDetail",item)}}
+      onPress={() => {
+        navigation.navigate("EventDetail", item);
+      }}
       className="bg-white mr-3 shadow max-w-[300px]"
     >
       <Image source={{ uri: imgUrl }} className="h-36 w-full rounded" />
@@ -35,8 +36,7 @@ const EventItem = ({ item,navigation }) => {
             style={{ marginRight: 5 }}
           />
           <Text className="font-semibold text-md py-2">
-            +{numParticipants}{" "}
-            <Text className="font-normal">participants</Text>
+            +{numParticipants} <Text className="font-normal">participants</Text>
           </Text>
         </View>
         <View className="flex-row items-center space-x-1">
