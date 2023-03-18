@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-element-textinput';
 
-const TextInputComponent = (props:{placeholder: string, color: string}) => {
-  const [value, setValue] = useState('');
-
+const TextInputComponent = (props:{placeholder: string, color: string, value: any, setValue: any}) => {
   return (
     <View style={styles.container}>
       <TextInput
-        value={value}
+        value={props.value}
         style={styles.input}
         inputStyle={styles.inputStyle}
         labelStyle={styles.labelStyle}
@@ -19,7 +17,7 @@ const TextInputComponent = (props:{placeholder: string, color: string}) => {
         placeholderTextColor="gray"
         focusColor={props.color}
         onChangeText={text => {
-          setValue(text);
+          props.setValue(text);
         }}
       />
     </View>

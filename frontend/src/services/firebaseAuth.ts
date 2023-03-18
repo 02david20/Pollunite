@@ -12,9 +12,9 @@ const signIn = async (email: string, password: string) => {
     return userCredential.user;
 }
 
-const signUp = async (email: string, password: string) => {
+const signUp = async (name: string, email: string, password: string) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    await addUser(userCredential.user.uid, email);
+    await addUser(userCredential.user.uid, name, email);
     return userCredential.user;
 }
 

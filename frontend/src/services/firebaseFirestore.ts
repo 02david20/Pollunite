@@ -21,10 +21,11 @@ type LatLng = {
     longitude: Number,
 };
 
-const addUser = async (uid: string, email: string) => {
+const addUser = async (uid: string, name: string, email: string) => {
     const usersRef = collection(db, 'users');
     const userRef = doc(usersRef, uid);
     await setDoc(userRef, {
+        name,
         email,
     });
     return userRef;
