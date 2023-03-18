@@ -1,12 +1,9 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { useFonts } from 'expo-font'
 import * as React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import TabNavigator from './src/navigation/TabNavigator'
 import HomeScreen from './src/screens/HomeScreen'
-import LoginScreen from './src/screens/LoginScreen'
-import { PiHomeDarkTheme, PiHomeLightTheme } from './src/styles/themes'
+import MapScreen from './src/screens/Map'
 const AuthStack = createStackNavigator()
 
 export default function App() {
@@ -26,7 +23,7 @@ export default function App() {
 
     return (
         <SafeAreaProvider>
-           <HomeScreen />
+           <MapScreen />
         </SafeAreaProvider>
     )
 }
