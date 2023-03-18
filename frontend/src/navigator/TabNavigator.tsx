@@ -23,7 +23,7 @@ const TabNavigator = () => {
       screenOptions={tabOptions}
       shifting={true}
     >
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
@@ -33,7 +33,7 @@ const TabNavigator = () => {
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Map"
         component={MapScreen}

@@ -14,6 +14,7 @@ import {
     uploadReportImage,
     uploadProfileImage
 } from './firebaseStorage';
+import { toBlob } from './imageService';
 
 const db = getFirestore(app);
 
@@ -32,23 +33,32 @@ const addUser = async (uid: string, name: string, email: string) => {
     return userRef;
 }
 
-const createReport = async (
-    uid: string, 
-    userName: string, 
-    image: File, 
-    location: LatLng, 
-    tag: [string]
-    ): Promise<string> => {
+const createReport = async ({
+    uid, 
+    name,
+    avatarUrl, 
+    imagePath,
+    desc,
+    lat,
+    lng, 
+    tags,
+}): Promise<string> => {
     const reportsRef = collection(db, 'reports');
-    const reportRef = await addDoc(reportsRef, {
+    const data = {
         uid,
-        userName,
-        location,
-        tag,
+        name,
+        avatarUrl,
+        desc,
+        lat,
+        lng,
+        tags,
         timestamp: serverTimestamp(),
         isResolved: false
-    });
-
+    }
+    
+    const reportRef = await addDoc(reportsRef, data);
+    const image = await toBlob(imagePath);
+    
     const imageUrl = await uploadReportImage(reportRef.id, image);
     await updateDoc(reportRef, {
         imageUrl
