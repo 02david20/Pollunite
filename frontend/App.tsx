@@ -3,6 +3,8 @@ import { useFonts } from 'expo-font'
 import {Text, View, Image, Pressable} from 'react-native'
 import * as React from 'react'
 import StartScreen from './src/screens/StartScreen'
+import LoginScreen from './src/screens/LoginScreen'
+import SignUpScreen from './src/screens/SignUpScreen'
 
 export default function App() {
     const [visible, setVisible] = React.useState(true)
@@ -20,7 +22,7 @@ export default function App() {
 
     return (
         <View>
-            <StartScreen />
+            <SignUpScreen />
         </View>
     )
 }
