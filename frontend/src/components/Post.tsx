@@ -16,6 +16,7 @@ type PostSchema = {
     timestamp: string,
     sender: string,
     senderImg: string,
+    isAdmin?: boolean;
   }
 }
 const Post = ({post}: PostSchema) => {
@@ -33,13 +34,20 @@ const Post = ({post}: PostSchema) => {
               <Text className="font-medium text-sm text-gray-500">{post.timestamp}</Text>
             </View>
           </View>
-          <Pressable onPress={() => setPressed(!pressed)}>
+          {post.isAdmin && <Pressable onPress={() => setPressed(!pressed)}>
           <View>
             <View className="mt-5 mr-3">
               <Text className="text-center bg-[#CBD5E1] text-white py-2 px-4 rounded-xl mt-1" style={pressed ? {backgroundColor: '#73B94E'} : null}>Resolved</Text>
             </View>
             </View>
-        </Pressable>  
+        </Pressable>
+          }
+          {!post.isAdmin && <Pressable onPress={() => setPressed(!pressed)}>
+          <View className="mt-9 mr-4">
+            <View className="w-4 h-4 rounded-full bg-gray-500" style={pressed ? {backgroundColor: '#73B94E'} : null}></View>
+          </View>
+        </Pressable>
+        }
         </View>
         <View className="px-5">
           <Text className="leading-6"><Text className="font-bold">Location:</Text> {post.location}</Text>
