@@ -6,6 +6,7 @@ import EventScreen from "../screens/EventScreen";
 import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import ReportScreen from "../screens/ReportScreen";
+import MapScreen from "../screens/Map";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { TabNavigatorParamList } from "./types";
 const Tab = createMaterialBottomTabNavigator<TabNavigatorParamList>();
@@ -30,6 +31,16 @@ const TabNavigator = () => {
           tabBarColor: "#1d192b25",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Map"
+        component={MapScreen}
+        options={{
+          tabBarLabel: "Map",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="map" color={color} size={26} />
           ),
         }}
       />

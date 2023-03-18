@@ -1,5 +1,6 @@
 export type TabNavigatorParamList = {
   Home: undefined;
+  Map: undefined;
   Report: undefined;
   Events: undefined;
   Profile: undefined;

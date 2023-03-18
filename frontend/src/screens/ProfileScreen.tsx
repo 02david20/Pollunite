@@ -38,8 +38,6 @@ const ProfileScreen = (): JSX.Element => {
             quality: 1,
         });
 
-        console.log(result);
-
         if (!result.canceled) {
             const blob = await new Promise((resolve, reject) => {
                 const xhr = new XMLHttpRequest();
