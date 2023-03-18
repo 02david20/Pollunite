@@ -1,33 +1,44 @@
 import * as React from 'react'
 import { View, Text, Button } from 'react-native'
-import { Marker } from 'react-native-maps'
 import MapView from 'react-native-map-clustering'
+import { Marker } from 'react-native-maps'
 import styles from './styles'
 import { PROVIDER_GOOGLE } from 'react-native-maps'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import * as Location from 'expo-location'
 
+
+
 const MapScreen = (): JSX.Element => {
+    const mapRef = useRef();
+    const superRef = useRef();
     const [position, setPosition] = useState<any>({
-        latitude: 100,
-        longitude: 100,
+        latitude: 50,
+        longitude: 50,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
     })
+    const [zoom, setZoom] = useState<number>();
     const [errorMsg, setErrorMsg] = useState<String>();
-    const reports  = [
-        {"latitude":10.8789364,"longitude":106.8098019},
+    const [reports, setReports] = useState([
+        {"latitude":10.8757936,"longitude":106.8091124},
+        {"latitude":10.8758056,"longitude":106.8090912},
         {"latitude":10.8749335,"longitude":106.8208019},
-        {"latitude":10.8739366,"longitude":106.8108019},
-        {"latitude":10.8789367,"longitude":106.8098019},
+        {"latitude":10.8739366,"longitude":106.8108019},{"latitude":10.8739466,"longitude":106.8108019},
+        {"latitude":10.8789367,"longitude":106.9098019},
+        {"latitude":10.8789367,"longitude":106.9098019},
+        {"latitude":10.8789367,"longitude":106.9098019},
+        {"latitude":10.8799367,"longitude":106.8098019},
         {"latitude":12.8789364,"longitude":107.8098019},
+        {"latitude":12.8989364,"longitude":107.8098019},
         {"latitude":13.8789364,"longitude":102.8098019},
         {"latitude":20.8789364,"longitude":103.8098019},
         {"latitude":30.8789364,"longitude":104.8098019},
-    ] 
+    ]) 
     useEffect(() => {
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
+            
             if (status !== 'granted') {
                 alert('Permission to access location was denied')
             }else{
@@ -48,36 +59,50 @@ const MapScreen = (): JSX.Element => {
         ;
       }, []);
 
+    const handleRegionChangeComplete = (region:any) => {
+        return;
+        
+    }
 
-    let text:String = 'Waiting..';
-    if (errorMsg) {
-        text = errorMsg;
-    } else if (position) {
-        text = JSON.stringify(position);
-    } 
-    
+    const handleOnClusterPress = (cluster:any) => {
+        console.log(cluster);
+        
+    }
 
     return (
-        <View style={styles.container}>
-            <MapView
-                provider = {PROVIDER_GOOGLE}
-                initialRegion={position}
-                style={styles.map}
-                region = {position}
+        <>
+            <MapView 
+                initialRegion={position} 
+                style={{ flex: 1 }}
                 mapType = "hybrid"
-                showsMyLocationButton = {true}
+                region={position}
+                showsUserLocation = {true}
+                minZoom = {20}
+                maxZoom = {20}
+                maxZoomLevel = {18}
+                minPoints = {2}
+                radius = {60}
+                onRegionChangeComplete = {handleRegionChangeComplete}
+                superClusterRef = {superRef}
+                showsScale = {true}
+                onClusterPress = {handleOnClusterPress}
             >
-                
-            {reports.map((report, index) => (
-                <Marker coordinate={report} 
-                        key = {index}>
-                
-                </Marker>
-            ))}
 
+                {
+                    reports.map((report:any, index:number) => (
+                        <Marker
+                            key = {index} 
+                            coordinate={report} 
+                        >
+                            
+                        </Marker>
+                    ))
+                }
             </MapView>
-        </View>
+        </>
+
     )
 }
 
 export default MapScreen
+
