@@ -4,12 +4,14 @@ import {
     setDoc,
     getFirestore,
     addDoc,
-    serverTimestamp
+    serverTimestamp,
+    getDoc
 } from 'firebase/firestore';
 import app from './firebaseApp';
 
 import {
-    uploadReportImage
+    uploadReportImage,
+    uploadProfileImage
 } from './firebaseStorage';
 
 const db = getFirestore(app);
@@ -41,7 +43,8 @@ const createReport = async (
         userName,
         location,
         tag,
-        timestamp: serverTimestamp()
+        timestamp: serverTimestamp(),
+        isResolved: false
     });
 
     const imageUrl = await uploadReportImage(reportRef.id, image);
@@ -52,7 +55,28 @@ const createReport = async (
     return reportRef.id;
 }
 
+const updateProfileImage = async (uid: string, image: File) => {
+    const imageUrl = await uploadProfileImage(uid, image);
+    const userRef = doc(db, `users/${uid}`);
+    await setDoc(userRef, {
+        imageUrl
+    });
+    return imageUrl;
+}
+
+const toggleResolvedStatus = async (id: string) => {
+    const reportRef = doc(db, `reports/${id}`);
+    const reportSnapshot = await getDoc(reportRef);
+    if (reportSnapshot.exists()) {
+        await setDoc(reportRef, {
+            isResolved: !reportSnapshot.data().isResolved
+        });
+    }
+}
+
 export {
     addUser,
-    createReport
+    createReport,
+    updateProfileImage,
+    toggleResolvedStatus
 }

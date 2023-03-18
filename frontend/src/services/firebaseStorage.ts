@@ -14,6 +14,14 @@ const uploadReportImage = async (id: string, image: File): Promise<string> => {
     return imageUrl;
 }
 
+const uploadProfileImage = async (uid: string, image: File): Promise<string> => {
+    const imageRef = ref(storage, `profile/${uid}/avatar.png`);
+    await uploadBytes(imageRef, image);
+    const imageUrl = await getDownloadURL(imageRef);
+    return imageUrl;
+}
+
 export {
-    uploadReportImage
+    uploadReportImage,
+    uploadProfileImage
 }
