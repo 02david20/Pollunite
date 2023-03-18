@@ -8,12 +8,14 @@ import {
 import {
     auth
 } from '../services/firebaseAuth';
-import { View } from 'react-native';
+import { View, Pressable } from 'react-native';
 import {
     Text,
     TextInput,
     Avatar
 } from "@react-native-material/core";
+import * as ImagePicker from 'expo-image-picker';
+import { updateProfileImage } from '../services/firebaseFirestore'
 
 const ProfileScreen = (): JSX.Element => {
     const [profile, setProfile] = useState<DocumentData|undefined>({});
@@ -29,6 +31,34 @@ const ProfileScreen = (): JSX.Element => {
         })
     }, []);
 
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.canceled) {
+            const blob = await new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function() {
+                  resolve(xhr.response);
+                };
+                xhr.onerror = function(e) {
+                  console.log(e);
+                  reject(new TypeError('Network request failed'));
+                };
+                xhr.responseType = 'blob';
+                xhr.open('GET', result.assets![0]?.uri, true);
+                xhr.send(null);
+            });
+            
+            updateProfileImage(currentUser?.uid, blob);
+        }
+    };
+
     return (
         <View style={{
             marginTop: 300,
@@ -37,9 +67,13 @@ const ProfileScreen = (): JSX.Element => {
             alignItems: 'center',
             rowGap: 25
         }}>
-            <Avatar
-                image={!profile?.imageUrl? require("../../assets/imgs/avatar.png") : { uri: profile?.imageUrl }}
-            />
+            <Pressable onPress={pickImage}>
+                <Avatar
+                    image={!profile?.imageUrl? require("../../assets/imgs/avatar.png") : { uri: profile?.imageUrl }}
+                    size={150} 
+                />
+            </Pressable>
+            <Text style={{fontStyle: 'italic'}}>Touch to change avatar</Text>
             <View style={{
                 flex: 1,
                 width: "80%",
@@ -48,14 +82,14 @@ const ProfileScreen = (): JSX.Element => {
                 rowGap: 10
             }}>
                 <TextInput 
-                    variant="outlined" 
+                    variant="standard" 
                     label="Email" 
                     style={{ width: "100%" }} 
                     value={profile?.email}
                     editable={false} 
                 />
                 <TextInput 
-                    variant="outlined" 
+                    variant="standard" 
                     label="Name" 
                     style={{ width: "100%" }} 
                     value={profile?.name}

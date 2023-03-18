@@ -56,7 +56,7 @@ const createReport = async (
     return reportRef.id;
 }
 
-const updateProfileImage = async (uid: string, image: File) => {
+const updateProfileImage = async (uid: any, image: any) => {
     const imageUrl = await uploadProfileImage(uid, image);
     const userRef = doc(db, `users/${uid}`);
     await setDoc(userRef, {
