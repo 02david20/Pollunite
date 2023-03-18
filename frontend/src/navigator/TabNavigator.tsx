@@ -2,7 +2,6 @@ import {
   createMaterialBottomTabNavigator,
   MaterialBottomTabNavigationOptions,
 } from "@react-navigation/material-bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import EventScreen from "../screens/EventScreen";
 import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
@@ -10,12 +9,11 @@ import ReportScreen from "../screens/ReportScreen";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { TabNavigatorParamList } from "./types";
 const Tab = createMaterialBottomTabNavigator<TabNavigatorParamList>();
-const Stack = createNativeStackNavigator();
 
 const tabOptions: MaterialBottomTabNavigationOptions = {
   tabBarColor: "#1D192B",
 };
-export const TabNavigator = () => {
+const TabNavigator = () => {
   return (
     <Tab.Navigator
       activeColor="#1D192B"
@@ -69,3 +67,5 @@ export const TabNavigator = () => {
     </Tab.Navigator>
   );
 };
+
+export default TabNavigator;

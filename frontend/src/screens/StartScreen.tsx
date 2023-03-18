@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {Text, View, Image, Pressable} from 'react-native'
-const StartScreen = (): JSX.Element => {
+const StartScreen = ({navigation}): JSX.Element => {
     return (
         <View className="w-full h-full flex-col justify-center items-center">
            <Image
@@ -13,7 +13,7 @@ const StartScreen = (): JSX.Element => {
                 <Text className="font-normal text-base leading-7 text-center text-gray-500">Small Action Today</Text>
                 <Text className="font-normal text-base leading-7 text-center text-gray-500">Big Impact Tommorow</Text>
             </View>
-            <Pressable className="w-4/5">
+            <Pressable className="w-4/5" onPress={() => navigation.navigate("Login")}>
                 <View className="bg-[#4CAF50] rounded-xl">
                     <Text className="text-white p-5 text-center not-italic font-semibold text-base leading-6">Get Started</Text>
                 </View>

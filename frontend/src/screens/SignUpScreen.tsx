@@ -6,7 +6,7 @@ import GoogleIcon from '../../assets/svg/google.svg'
 import FacebookIcon from '../../assets/svg/facebook.svg'
 import {signUp} from '../services/firebaseAuth';
 
-const SignUpScreen = (): JSX.Element => {
+const SignUpScreen = ({navigation}): JSX.Element => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -45,9 +45,12 @@ const SignUpScreen = (): JSX.Element => {
                   </View>
                 </Pressable>
               </View>
-              <Text className="text-center not-italic font-normal text-lg text-gray-600 mt-5">Have an account? <Text className="text-black font-bold">
-               Sign In
-              </Text></Text>
+              <Text className="text-center not-italic font-normal text-lg text-gray-600 mt-5">Have an account? 
+              <Pressable onPress={() => navigation.navigate("Login")}>
+                <Text className="text-black font-bold">
+                Sign In
+                </Text>
+              </Pressable></Text>
             </View>
            </View>
         </View>

@@ -1,7 +1,6 @@
 import app from './src/services/firebaseApp'
-import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from "@react-navigation/native";
-import { useFonts } from 'expo-font'
+// import { useFonts } from 'expo-font'
 import {useState, useEffect} from 'react'
 import {
     getAuth,
@@ -9,13 +8,11 @@ import {
     User,
 } from 'firebase/auth'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import AppStack from "./src/navigator/AppStack";
-import { TabNavigator } from "./src/navigator/TabNavigator";
-import { PiHomeDarkTheme, PiHomeLightTheme } from "./src/styles/themes";
-const AuthStack = createStackNavigator();
+// import AppStack from "./src/navigator/AppStack";
+import AuthStack from './src/navigator/AuthStack';
+import TabNavigator from './src/navigator/TabNavigator';
 
 export default function App() {
-    const [visible, setVisible] = useState(true)
     const [user, setUser] = useState<User|null>(null)
     // const [fontLoaded, error] = useFonts({
     //     'Poppins_bold': require('./assets/font/Poppins-Bold.otf'),
@@ -38,7 +35,9 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <AppStack />
+        {user
+        ? <TabNavigator />
+        : <AuthStack />}
       </NavigationContainer>
     </SafeAreaProvider>
   );
