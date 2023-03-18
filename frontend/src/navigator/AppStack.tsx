@@ -1,21 +1,15 @@
-import { View, Text } from "react-native";
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import LoginScreen from "../screens/LoginScreen";
-import OnboardingScreen from "../screens/OnboardingScreen";
-import RegisterScreen from "../screens/RegisterScreen";
 import HomeScreen from "../screens/HomeScreen";
 import CustomDrawer from "../components/CustomDrawer";
-import { TabNavigator } from "./TabNavigator";
+// import { TabNavigator } from "./TabNavigator";
 import EventScreen from "../screens/EventScreen";
 import ReportScreen from "../screens/ReportScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { DrawerNavigatorParamList } from "./types";
 
-const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator<DrawerNavigatorParamList>();
 
 const AppStack = () => {
@@ -36,7 +30,7 @@ const AppStack = () => {
     >
       <Drawer.Screen
         name="Home"
-        component={TabNavigator}
+        component={HomeScreen}
         options={{
           drawerIcon: (p: any) => (
             <MaterialCommunityIcons name="home" size={22} color={p.color} />

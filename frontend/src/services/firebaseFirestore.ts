@@ -5,7 +5,8 @@ import {
     getFirestore,
     addDoc,
     serverTimestamp,
-    getDoc
+    getDoc,
+    updateDoc
 } from 'firebase/firestore';
 import app from './firebaseApp';
 
@@ -49,7 +50,7 @@ const createReport = async (
     });
 
     const imageUrl = await uploadReportImage(reportRef.id, image);
-    await setDoc(reportRef, {
+    await updateDoc(reportRef, {
         imageUrl
     });
 
@@ -59,7 +60,7 @@ const createReport = async (
 const updateProfileImage = async (uid: any, image: any) => {
     const imageUrl = await uploadProfileImage(uid, image);
     const userRef = doc(db, `users/${uid}`);
-    await setDoc(userRef, {
+    await updateDoc(userRef, {
         imageUrl
     });
     return imageUrl;
@@ -69,7 +70,7 @@ const toggleResolvedStatus = async (id: string) => {
     const reportRef = doc(db, `reports/${id}`);
     const reportSnapshot = await getDoc(reportRef);
     if (reportSnapshot.exists()) {
-        await setDoc(reportRef, {
+        await updateDoc(reportRef, {
             isResolved: !reportSnapshot.data().isResolved
         });
     }

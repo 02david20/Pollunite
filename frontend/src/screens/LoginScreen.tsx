@@ -6,7 +6,7 @@ import GoogleIcon from '../../assets/svg/google.svg'
 import FacebookIcon from '../../assets/svg/facebook.svg'
 import {signIn} from '../services/firebaseAuth';
 
-const LoginScreen = (): JSX.Element => {
+const LoginScreen = ({navigation}): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -43,9 +43,12 @@ const LoginScreen = (): JSX.Element => {
                   </View>
                 </Pressable>
               </View>
-              <Text className="text-center not-italic font-normal text-lg text-gray-600 mt-5">Don't have an account? <Text className="text-black font-bold">
-               Create now
-              </Text></Text>
+              <Text className="text-center not-italic font-normal text-lg text-gray-600 mt-5">Don't have an account? 
+              <Pressable onPress={() => navigation.navigate("Signup")}>
+                <Text className="text-black font-bold">
+                  Create now
+                </Text>
+              </Pressable></Text>
             </View>
            </View>
         </View>
