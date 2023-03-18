@@ -3,10 +3,9 @@ import React from "react";
 import EventItem from "./EventItem";
 
 
-const EventList = () => {
+const EventList = ({navigation}) => {
     return (
       <View>
-        
         <ScrollView
           horizontal
           contentContainerStyle={{ paddingHorizontal: 15 }}
@@ -14,7 +13,9 @@ const EventList = () => {
           className="pt-4"
         >
           {data &&
-            data.map((item, index) => <EventItem key={index} item={item} />)}
+            data.map((item, index) => (
+              <EventItem key={index} item={item} navigation={navigation} />
+            ))}
         </ScrollView>
       </View>
     );

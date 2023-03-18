@@ -1,10 +1,12 @@
 import { View, Text, TextInput, ScrollView } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import EventList from "../components/EventList";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const EventScreen = () => {
+  const navigation: any = useNavigation();
   return (
     <ScrollView className="pt-7 px-2">
       {/* Header */}
@@ -29,7 +31,7 @@ const EventScreen = () => {
         <Text className="font-extrabold text-lg text-start text-[#439146] px-2">
           Suggested for you
         </Text>
-        <EventList />
+        <EventList navigation={navigation} />
       </View>
 
       {/* Ongoing */}
@@ -37,7 +39,7 @@ const EventScreen = () => {
         <Text className="font-extrabold text-lg text-start text-[#439146] px-2">
           Ongoing
         </Text>
-        <EventList />
+        <EventList navigation={navigation} />
       </View>
 
       {/* Pending */}
@@ -45,7 +47,7 @@ const EventScreen = () => {
         <Text className="font-extrabold text-lg text-start text-[#439146] px-2">
           Pending
         </Text>
-        <EventList />
+        <EventList navigation={navigation} />
       </View>
 
       {/* Closed */}
@@ -53,7 +55,7 @@ const EventScreen = () => {
         <Text className="font-extrabold text-lg text-start text-[#439146] px-2">
           Closed
         </Text>
-        <EventList />
+        <EventList navigation={navigation} />
       </View>
     </ScrollView>
   );
