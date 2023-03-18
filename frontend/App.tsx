@@ -6,6 +6,7 @@ import StartScreen from './src/screens/StartScreen'
 import LoginScreen from './src/screens/LoginScreen'
 import SignUpScreen from './src/screens/SignUpScreen'
 import ViewAreaScreen from './src/screens/ViewArea'
+import ResolveScreen from './src/screens/ResolveScreen'
 
 export default function App() {
     const [visible, setVisible] = React.useState(true)
@@ -23,7 +24,7 @@ export default function App() {
 
     return (
         <View>
-            <ViewAreaScreen />
+            <ResolveScreen />
         </View>
     )
 }

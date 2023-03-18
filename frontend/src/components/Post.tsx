@@ -54,7 +54,7 @@ const Post = ({post}: PostSchema) => {
           <Text className="leading-6"><Text className="font-bold">Description:</Text> {post.desc}</Text>
           <Image 
             source={{uri: post.img}}
-            style={{ width: '100%', height: 200}} />
+            style={{ width: '100%', height: 200, marginTop: 20}} />
         </View>
         <View className="w-11/12 mx-auto flex-row justify-between mt-2">
             <View className="flex-row justify-between gap-4">
