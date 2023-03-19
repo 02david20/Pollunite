@@ -11,7 +11,6 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { TabNavigatorParamList } from "./types";
 import EventDetailScreen from "../screens/EventDetailScreen";
 import { createStackNavigator } from "@react-navigation/stack";
-import ViewAreaScreen from "../screens/ViewArea";
 import ResolveScreen from "../screens/ResolveScreen";
 import JoinScreen from "../screens/JoinScreen";
 const Tab = createMaterialBottomTabNavigator<TabNavigatorParamList>();
