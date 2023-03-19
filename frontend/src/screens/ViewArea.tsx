@@ -38,7 +38,7 @@ const data = [
 ]
 const ViewAreaScreen = (): JSX.Element => {
     return (
-        <View className="w-full h-full">
+        <View className="w-full h-full bg-white">
          <Header title="Area Detail" isResolve={false} />
          <FlatList
             data={data}

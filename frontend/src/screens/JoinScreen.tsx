@@ -26,7 +26,7 @@ const data = [
   { label: "Recycling", value: "recycling" },
 ];
 
-type Report = {
+type Resolve = {
   lat?: number | undefined;
   lng?: number | undefined;
   desc?: string | undefined;
@@ -34,7 +34,7 @@ type Report = {
 };
 
 const AddGardenScreen = () => {
-  const [report, setReport] = useState<Report>();
+  const [resolve, setResolve] = useState<Resolve>();
   const [selected, setSelected] = useState<string[]>([]);
   useEffect(() => { 
     (async () => { 
@@ -45,8 +45,8 @@ const AddGardenScreen = () => {
         }else{ 
             try{ 
                 let location = await Location.getCurrentPositionAsync({}); 
-                setReport({
-                    ...report,
+                setResolve({
+                    ...resolve,
                     lat: location.coords.latitude, 
                     lng: location.coords.longitude, 
                 }) 
@@ -70,12 +70,12 @@ const AddGardenScreen = () => {
       name,
       avatarUrl,
       imagePath: pickedImagePath,
-      desc: report?.desc,
-      lng: report?.lng,
-      lat: report?.lat,
+      desc: resolve?.desc,
+      lng: resolve?.lng,
+      lat: resolve?.lat,
       tags: selected,
     });
-    setReport({});
+    setResolve({});
     setSelected([]);
     setPickedImagePath("");
   };
@@ -118,7 +118,7 @@ const AddGardenScreen = () => {
     <View className="flex-1 bg-[#fff] pt-5 w-full mx-auto h-full flex-col justify-center">
       <ScrollView className="px-5 pt-5">
         <Text className="font-extrabold text-4xl text-center text-[#4CAF50] mb-10">
-          New Report
+          New Resolve
         </Text>
 
         <InputField
@@ -131,41 +131,14 @@ const AddGardenScreen = () => {
               style={{ marginRight: 5 }}
             />
           }
-          value={report?.desc}
+          value={resolve?.desc}
           inputType=""
           fieldButtonFunction={""}
           fieldButtonLabel={""}
           onChangeText={(t: string) => {
-            setReport({ ...report, desc: t });
+            setResolve({ ...resolve, desc: t });
           }}
           keyboardType="default"
-        />
-
-        <MultiSelect
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          search
-          data={data}
-          labelField="label"
-          valueField="value"
-          placeholder="Type of waste"
-          searchPlaceholder="Search..."
-          value={selected}
-          onChange={(item) => {
-            setSelected(item);
-          }}
-          renderLeftIcon={() => (
-            <AntDesign
-              style={styles.icon}
-              color="black"
-              name="Safety"
-              size={20}
-            />
-          )}
-          selectedStyle={styles.selectedStyle}
         />
 
         {

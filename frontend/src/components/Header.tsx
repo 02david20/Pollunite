@@ -16,6 +16,13 @@ const Header = (props: {title: string, isResolve: boolean}) => {
           </View>
         </Pressable>
       }
+      {props.isResolve &&
+        <Pressable>
+          <View>
+            <Text className="text-center bg-blue-600 text-white px-3 py-2 rounded-xl mt-1">Submit</Text>
+          </View>
+        </Pressable>
+      }
         <Pressable>
           <View>
           <View>
