@@ -1,0 +1,211 @@
+<!--
+Hey, thanks for using the awesome-readme-template template.  
+If you have any enhancements, then fork this project and create a pull request 
+or just open an issue with the label "enhancement".
+
+Don't forget to give this project a star for additional support ;)
+Maybe you can mention me or this repo in the acknowledgements too
+-->
+<div align="center">
+
+  <img src="./assets/logo.png" alt="logo" width="200" height="auto" />
+  <h1>Pollunite</h1>
+  
+  <p>
+    Small action today, Big impact tomorrow
+  </p>
+  
+   
+<h4>
+    <a href="https://github.com/02david20/Pollunite">View Demo</a>
+  <span> · </span>
+    <a href="https://github.com/02david20/Pollunite">Documentation</a>
+  <span> · </span>
+    <a href="https://github.com/02david20/Pollunite/issues/">Report Bug</a>
+  <span> · </span>
+    <a href="https://github.com/02david20/Pollunite/issues/">Request Feature</a>
+  </h4>
+</div>
+
+<br />
+
+<!-- Table of Contents -->
+# :notebook_with_decorative_cover: Table of Contents
+
+- [:notebook\_with\_decorative\_cover: Table of Contents](#notebook_with_decorative_cover-table-of-contents)
+  - [:star2: About the Project](#star2-about-the-project)
+    - [:space\_invader: Tech Stack](#space_invader-tech-stack)
+    - [:dart: Features](#dart-features)
+    - [:art: Color Reference](#art-color-reference)
+    - [:key: Environment Variables](#key-environment-variables)
+  - [:toolbox: Getting Started](#toolbox-getting-started)
+    - [:bangbang: Prerequisites](#bangbang-prerequisites)
+    - [:gear: Installation](#gear-installation)
+    - [:running: Run Locally](#running-run-locally)
+    - [:triangular\_flag\_on\_post: Deployment](#triangular_flag_on_post-deployment)
+  - [:wave: Contributing](#wave-contributing)
+  - [:grey\_question: Future Work](#grey_question-future-work)
+  - [:handshake: Contact](#handshake-contact)
+  - [:gem: Acknowledgements](#gem-acknowledgements)
+
+  
+
+<!-- About the Project -->
+## :star2: About the Project
+
+<!-- TechStack -->
+### :space_invader: Tech Stack
+
+<details>
+  <summary>Client: React Native with TypeScript</summary>
+  <ul>
+    <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
+    <li><a href="https://reactnative.dev/">React Native</a></li>
+    <li><a href="https://tailwindcss.com/">TailwindCSS</a></li>
+  </ul>
+</details>
+
+<details>
+  <summary>Server & Database: Firebase Ecosystem</summary>
+  <ul>
+    <li><a href="https://firebase.google.com/docs/firestore">Cloud Firestore</a></li>
+    <li><a href="https://firebase.google.com/docs/database">Firebase Realtime Database</a></li>
+    <li><a href="https://firebase.google.com/docs/cloud-messaging">Firebase Cloud Storage</a></li>
+  </ul>
+</details>
+
+<!-- Features -->
+### :dart: Features
+
+- Pollution Map
+- GPS and Cluster Navigation
+- Pollution Report
+- View Area Detail
+- Join Area
+- Event, Donations
+
+<!-- Color Reference -->
+### :art: Color Reference
+
+| Color             | Hex                                                                |
+| ----------------- | ------------------------------------------------------------------ |
+| Primary Color | ![#4CAF50](https://via.placeholder.com/10/4CAF50?text=+) #4CAF50 |
+| Secondary Color | ![#1D192B](https://via.placeholder.com/10/1D192B?text=+) #1D192B |
+| Accent Color | ![#E8DEF8](https://via.placeholder.com/10/E8DEF8?text=+) #E8DEF8 |
+| Text Color | ![#EEEEEE](https://via.placeholder.com/10/EEEEEE?text=+) #EEEEEE |
+
+
+<!-- Env Variables -->
+### :key: Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`GOOGLE_API_KEY` (https://developers.google.com/maps/documentation/javascript/get-api-key)
+
+<!-- Getting Started -->
+## 	:toolbox: Getting Started
+
+<!-- Prerequisites -->
+### :bangbang: Prerequisites
+
+This project uses [Node.js](https://nodejs.org/en/download) as the run-time environment for JavaScript/ TypeScript, and NPM as the package manager.\\
+Then you would need to install React Native for Expo
+
+```bash
+ npm install --global expo-cli
+```
+
+<!-- Installation -->
+### :gear: Installation
+
+Install Client-Side Services
+
+```bash
+  expo init frontend
+  cd frontend
+```
+
+Since Firebase acts as Backend/ Database Management System in this project, we would not need to install anything further :smile:
+   
+
+<!-- Run Locally -->
+### :running: Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/02david20/Pollunite
+```
+
+Go to the project directory
+
+```bash
+  cd Pollunite
+  cd frontend
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  expo start
+```
+
+Then a QR code would be generated automatically in the CLI. If you have already installed [Expo Go](https://expo.dev/), you can scan the QR to run the application locally. Otherwise, you can run the project using AVD (Android Virtual Device).
+
+
+<!-- Deployment -->
+### :triangular_flag_on_post: Deployment
+
+To deploy this project run
+
+```bash
+  expo publish
+```
+
+Expo CLI would subsequently create a site that links to the project's QR code. This time, anyone with Expo Go can run the app after scanning.//
+P/s: An Expo account is required to execute this step.
+
+
+<!-- Contributing -->
+## :wave: Contributing
+
+<ul>
+    <li><a href="https://www.facebook.com/profile.php?id=100030314627238">Dai-Vinh Huynh</a></li>
+    <li><a href="https://www.facebook.com/khasang0412/">Sang Kha</a></li>
+    <li><a href="https://www.facebook.com/an.nguyenduc1406">Duc-An Nguyen</a></li>
+    <li><a href="https://www.facebook.com/cpt.quangkhanh.09">Quang-Khanh Nguyen</a></li>
+  </ul>
+
+<!-- FAQ -->
+## :grey_question: Future Work
+
+- Notification For All People Subscribe in Area (Cluster)
+- Sharing Environmental Achievement to Social Media
+- Daily Reports
+- Evaluate Impact of pollution the area
+- Connect to digital waller service for donations
+
+<!-- Contact -->
+## :handshake: Contact
+
+Huỳnh Đại Vinh - [@facebook_handle](https://www.facebook.com/profile.php?id=100030314627238)
+
+Project Link: [https://github.com/02david20/Pollunite](https://github.com/02david20/Pollunite)
+
+
+<!-- Acknowledgments -->
+## :gem: Acknowledgements
+
+Use this section to mention useful resources and libraries that you have used in your projects.
+
+ - [Google Maps API](https://developers.google.com/maps)
+ - [Firebase Documentation](https://firebase.google.com/docs)
+ - [React Native with Expo](https://expo.dev/)
+
+ - [Readme Template](https://github.com/othneildrew/Best-README-Template)
