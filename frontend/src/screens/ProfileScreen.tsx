@@ -48,11 +48,11 @@ const ProfileScreen = (): JSX.Element => {
 
     return (
         <View style={{
-            marginTop: 300,
+            marginTop: 200,
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            rowGap: 25
+            rowGap: 25,
         }}>
             <Pressable onPress={pickImage}>
                 <Avatar
