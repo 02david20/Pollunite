@@ -36,10 +36,10 @@ const data = [
         isAdmin: false,
     }
 ]
-const ResolveScreen = (): JSX.Element => {
+const ResolveScreen = ({navigation}): JSX.Element => {
     return (
         <View className="w-full h-full bg-white">
-         <Header title="Resolve" isResolve={true} />
+         <Header title="Resolve" isResolve={true} navigation={navigation} />
          <FlatList
             data={data}
             ItemSeparatorComponent={() => <View style={{width: 10, height: 10}} />}

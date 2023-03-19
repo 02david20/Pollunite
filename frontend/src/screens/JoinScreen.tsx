@@ -33,7 +33,7 @@ type Resolve = {
   img?: string | undefined;
 };
 
-const AddGardenScreen = () => {
+const JoinScreen = () => {
   const [resolve, setResolve] = useState<Resolve>();
   const [selected, setSelected] = useState<string[]>([]);
   useEffect(() => { 
@@ -187,7 +187,7 @@ const AddGardenScreen = () => {
   );
 };
 
-export default AddGardenScreen;
+export default JoinScreen;
 
 const styles = StyleSheet.create({
   container: { padding: 16 },

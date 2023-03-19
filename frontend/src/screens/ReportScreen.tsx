@@ -33,7 +33,7 @@ type Report = {
   img?: string | undefined;
 };
 
-const AddGardenScreen = () => {
+const ReportScreen = () => {
   const [report, setReport] = useState<Report>();
   const [selected, setSelected] = useState<string[]>([]);
   useEffect(() => { 
@@ -214,7 +214,7 @@ const AddGardenScreen = () => {
   );
 };
 
-export default AddGardenScreen;
+export default ReportScreen;
 
 const styles = StyleSheet.create({
   container: { padding: 16 },

@@ -11,6 +11,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { TabNavigatorParamList } from "./types";
 import EventDetailScreen from "../screens/EventDetailScreen";
 import { createStackNavigator } from "@react-navigation/stack";
+import ViewAreaScreen from "../screens/ViewArea";
+import ResolveScreen from "../screens/ResolveScreen";
+import JoinScreen from "../screens/JoinScreen";
 const Tab = createMaterialBottomTabNavigator<TabNavigatorParamList>();
 const Stack = createStackNavigator();
 
@@ -83,6 +86,36 @@ const TabNavigator = () => {
           tabBarLabel: "Profile",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ViewArea"
+        component={ViewAreaScreen}
+        options={{
+          tabBarLabel: "ViewArea",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="map-marker" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen 
+        name="Resolve" 
+        component={ResolveScreen} 
+        options={{
+          tabBarLabel: "Resolve",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="map-marker" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen 
+        name="Join" 
+        component={JoinScreen} 
+        options={{
+          tabBarLabel: "Join",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="map-marker" color={color} size={26} />
           ),
         }}
       />
