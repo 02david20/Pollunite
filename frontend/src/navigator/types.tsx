@@ -4,6 +4,9 @@ export type TabNavigatorParamList = {
   Report: undefined;
   Events: undefined;
   Profile: undefined;
+  ViewArea: undefined;
+  Resolve: undefined;
+  EventsStack: undefined;
 };
 
 export type DrawerNavigatorParamList = {
