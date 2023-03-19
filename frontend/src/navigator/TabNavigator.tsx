@@ -13,6 +13,7 @@ import EventDetailScreen from "../screens/EventDetailScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import ResolveScreen from "../screens/ResolveScreen";
 import JoinScreen from "../screens/JoinScreen";
+import ViewAreaScreen from "../screens/ViewArea";
 const Tab = createMaterialBottomTabNavigator<TabNavigatorParamList>();
 const Stack = createStackNavigator();
 

@@ -100,11 +100,38 @@ const MapScreen = (): JSX.Element => {
   const handleRegionChangeComplete = (region: any) => {
     return;
   };
+  const getClusterMarkersResolved = (cluster) => {
+    const cluster_id = cluster.properties.cluster_id;
+    let markers = superRef.current?.getLeaves(cluster_id);
+    let data;
+
+    markers = markers
+      ?.map((elem: any, index) => elem.geometry.coordinates)
+      .map((elem) => ({
+        latitude: elem[1],
+        longitude: elem[0],
+      }));
+    data = reports.filter((elem) =>
+      markers.some(
+        (marker) => marker.latitude == elem.lat && marker.longitude == elem.lng
+      ) && elem.isResolved
+    );
+    return data.length
+  }
 
   const handleRenderCluster = (cluster: any) => {
     const { id, geometry, onPress, properties } = cluster;
     const points = properties.point_count;
-    const clusterColor = "red";
+    const resolved = getClusterMarkersResolved(cluster)
+    const ratio = resolved/points;
+    let clusterColor;
+    if(ratio <= 0.5) {
+      clusterColor = "red";
+    }else if(0.5 < ratio && ratio <= 0.8) {
+      clusterColor = "orange";
+    }else {
+      clusterColor = "green";
+    }
     const clusterTextColor = "white";
     const { width, height, fontSize, size } = returnMarkerStyle(points);
     return (
@@ -165,7 +192,6 @@ const MapScreen = (): JSX.Element => {
     await toggleModal();
 
     const cluster_id = cluster.properties.cluster_id;
-
     let markers = superRef.current?.getLeaves(cluster_id);
     let data;
 
