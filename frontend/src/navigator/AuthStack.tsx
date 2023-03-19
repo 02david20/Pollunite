@@ -5,15 +5,16 @@ import SignUpScreen from '../screens/SignUpScreen';
 import ViewAreaScreen from '../screens/ViewArea';
 import ResolveScreen from '../screens/ResolveScreen';
 import JoinScreen from '../screens/JoinScreen';
+import LeaderBoardScreen from '../screens/LeaderBoardScreen';
 
 const Stack = createStackNavigator();
 
 const AuthStack = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen
-                name="Start"
-                component={StartScreen}
+             <Stack.Screen
+                name="LeaderBoard"
+                component={LeaderBoardScreen}
             />
             <Stack.Screen
                 name="Login"
@@ -34,6 +35,10 @@ const AuthStack = () => {
             <Stack.Screen
                 name="Join"
                 component={JoinScreen}
+            />
+            <Stack.Screen
+                name="LeaderBoard"
+                component={LeaderBoardScreen}
             />
         </Stack.Navigator>
     )

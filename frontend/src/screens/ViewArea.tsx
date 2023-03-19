@@ -40,7 +40,7 @@ const ViewAreaScreen = ({navigation}): JSX.Element => {
     return (
         <View className="w-full h-full bg-white">
         <Header title="Area Detail" isResolve={false} navigation={navigation} />
-         <FlatList
+        <FlatList
             data={data}
             ItemSeparatorComponent={() => <View style={{width: 10, height: 10}} />}
             renderItem={({ item }: ListRenderItemInfo<PostSchema>) => (

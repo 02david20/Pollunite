@@ -36,7 +36,9 @@ const Header = (props: {title: string, isResolve: boolean, navigation: any}) => 
           </View>
           </View>
         </Pressable>
-      <RankIcon />
+        <Pressable onPress={() => {props.navigation.navigate("LeaderBoard")}}>
+          <RankIcon />
+        </Pressable>
     </View>
   );
 };
