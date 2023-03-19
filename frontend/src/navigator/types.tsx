@@ -8,6 +8,7 @@ export type TabNavigatorParamList = {
   Resolve: undefined;
   Join: undefined;
   EventsStack: undefined;
+  MapStack: undefined;
 };
 
 export type DrawerNavigatorParamList = {

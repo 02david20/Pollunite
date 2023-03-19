@@ -7,7 +7,6 @@ import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import ReportScreen from "../screens/ReportScreen";
 import MapScreen from "../screens/Map";
-import ViewAreaScreen from "../screens/ViewArea";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { TabNavigatorParamList } from "./types";
 import EventDetailScreen from "../screens/EventDetailScreen";

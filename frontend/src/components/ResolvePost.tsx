@@ -1,32 +1,29 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, Pressable, Image } from 'react-native';
-import VoteIcon from '../../assets/svg/vote_icon.svg'
-import VoteActiveIcon from '../../assets/svg/vote_active.svg'
+import ConfirmIcon from '../../assets/svg/confirm_icon.svg'
+import ConfirmActiveIcon from '../../assets/svg/confirm_active.svg'
 import LocationIcon from '../../assets/svg/location.svg'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
-  toggleResolvedStatus,
-  upvoteReport,
-  removeUpvoteReport
+  confirmResolve,
+  removeConfirmResolve
 } from '../services/firebaseFirestore';
 
-type PostSchema = {
-  id: string,
-  lat: number, 
-  lng: number, 
-  desc: string,
-  imageUrl: string,
-  avatarUrl: string,
-  uid: string,
-  name: string,
-  timestamp: string,
-  isResolved: boolean,
-  tags: string[]
-  upvote: string[]
+type ResolveSchema = {
+    id: string,
+    lat: number, 
+    lng: number, 
+    desc: string,
+    imageUrl: string,
+    avatarUrl: string,
+    uid: string,
+    name: string,
+    timestamp: string,
+    confirm: string[]
 }
 
-const Post = (props) => {
-  let post: PostSchema = props.post;
+const ResolvePost = (props) => {
+  let post: ResolveSchema = props.post;
   const [currentUid, setCurrentUid] = React.useState<any>('');
 
   useEffect(() => {
@@ -45,22 +42,8 @@ const Post = (props) => {
               <Text className="font-medium text-sm text-gray-500">{post.timestamp}</Text>
             </View>
           </View>
-        {(currentUid == post.uid)
-          ? <Pressable onPress={() => toggleResolvedStatus(post.id)}>
-            <View>
-              <View className="mt-5 mr-3">
-                <Text className="text-center bg-[#CBD5E1] text-white py-2 px-4 rounded-xl mt-1" style={post.isResolved ? { backgroundColor: '#73B94E' } : null}>Resolved</Text>
-              </View>
-            </View>
-          </Pressable>
-
-          : <View className="mt-9 mr-4">
-            <View className="w-4 h-4 rounded-full bg-gray-500" style={post.isResolved? { backgroundColor: '#73B94E' } : null}></View>
-          </View>
-        }
         </View>
         <View className="px-5">
-          <Text className="leading-6"><Text className="font-bold">Tags:</Text>{}</Text>
           <Text className="leading-6"><Text className="font-bold">Description:</Text> {post.desc}</Text>
           <Image 
             source={{uri: post.imageUrl}}
@@ -69,10 +52,10 @@ const Post = (props) => {
         <View className="w-11/12 mx-auto flex-row justify-between mt-2">
             <View className="flex-row justify-between gap-4">
               <View className="flex-row justify-between items-center">
-                  <Pressable onPress={() => (post.upvote.includes(currentUid))? removeUpvoteReport(post.id, currentUid):upvoteReport(post.id, currentUid)}>
-                    {(post.upvote.includes(currentUid))? <VoteActiveIcon /> : <VoteIcon />}
+                  <Pressable onPress={() => (post.confirm.includes(currentUid))? removeConfirmResolve(post.id, currentUid):confirmResolve(post.id, currentUid)}>
+                    {(post.confirm.includes(currentUid))? <ConfirmActiveIcon /> : <ConfirmIcon />}
                   </Pressable>
-                  <Text className="ml-2" style={(post.upvote.includes(currentUid))? {color: '#F04A4A'}: null}>{post.upvote.length}</Text>
+                  <Text className="ml-2" style={(post.confirm.includes(currentUid))? {color: '#66f542'}: null}>{post.confirm.length}</Text>
               </View>
             </View>
             <View>
@@ -83,4 +66,4 @@ const Post = (props) => {
   );
 };
 
-export default Post;
+export default ResolvePost;
