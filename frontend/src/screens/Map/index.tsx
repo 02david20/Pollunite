@@ -10,6 +10,7 @@ import {
   doc,
   DocumentData,
   getFirestore,
+  limit,
   onSnapshot,
   query,
   QuerySnapshot,
@@ -21,11 +22,8 @@ import { markerStyles, styles } from "./styles";
 import Modal from "react-native-modal";
 import CustomButton from "../../components/CustomButton";
 import { LogBox } from "react-native";
-<<<<<<< HEAD
 import { useNavigation } from "@react-navigation/native";
 
-=======
->>>>>>> a4d254e504377f96f254af25253bf0e3519ed345
 // Ignore log notification by message
 LogBox.ignoreLogs(["Warning: ..."]);
 //Ignore all log notifications
@@ -55,22 +53,18 @@ const MapScreen = (): JSX.Element => {
       (querySnapshot) => {
         let temp: any = [];
         querySnapshot.forEach((report) =>
-          temp.push(
-            Object.create({
-              ...report.data(),
-              id: report.id,
-            })
-          )
+          temp.push({
+            ...report.data(),
+            id: report.id,
+          })
         );
 
         setReports(temp);
         setLocations(
-          temp.map((report: any) =>
-            Object.create({
-              latitude: report.lat,
-              longitude: report.lng,
-            })
-          )
+          temp.map((report: any) => ({
+            latitude: report.lat,
+            longitude: report.lng,
+          }))
         );
       }
     );
@@ -169,7 +163,22 @@ const MapScreen = (): JSX.Element => {
   const handleOnClusterPress = async (cluster: any) => {
     await setLocationClick(cluster.geometry.coordinates);
     await toggleModal();
-    await console.log(cluster);
+    const clusters = superRef.current!.getClusters([-180, -85, 180, 85], 20);
+
+    const cluster_id = cluster.properties.cluster_id;
+
+    const markers = superRef.current
+      ?.getLeaves(cluster_id)
+      ?.map((elem: any, index) => elem.geometry.coordinates)
+      .map((elem) => ({
+        latitude: elem[1],
+        longitude: elem[0],
+      }));
+
+    const data = reports.filter(
+      elem => markers.filter( marker => (marker.latitude == elem.lat) && (marker.longitude == elem.lng)  )
+    )
+    
   };
   const handleOnMarkerPress = async (marker: any, report: any) => {
     console.log(report);
@@ -202,17 +211,6 @@ const MapScreen = (): JSX.Element => {
         superClusterRef={superRef}
         showsScale={true}
         onClusterPress={handleOnClusterPress}
-<<<<<<< HEAD
-        //onMarkerPress={handleOnMarkerPress}
-      >
-        {reports.map((report: any, index: number) => (
-          <Marker
-            key={index}
-            coordinate={report}
-            onPress={(e) => handleOnMarkerPress(e, report)}
-          ></Marker>
-        ))}
-=======
         renderCluster={handleRenderCluster}
       >
         {locations &&
@@ -223,8 +221,6 @@ const MapScreen = (): JSX.Element => {
               onPress={(e) => handleOnMarkerPress(e, report)}
             ></Marker>
           ))}
-        
->>>>>>> a4d254e504377f96f254af25253bf0e3519ed345
       </MapView>
       <Modal
         testID={"modal"}
