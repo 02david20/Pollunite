@@ -17,7 +17,7 @@ Maybe you can mention me or this repo in the acknowledgements too
   
    
 <h4>
-    <a href="https://github.com/02david20/Pollunite">View Demo</a>
+    <a href="https://expo.dev/@khasang12/mobile?serviceType=classic&distribution=expo-go">View Demo</a>
   <span> · </span>
     <a href="https://github.com/02david20/Pollunite">Documentation</a>
   <span> · </span>
