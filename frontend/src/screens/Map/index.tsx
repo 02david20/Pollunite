@@ -160,27 +160,32 @@ const MapScreen = (): JSX.Element => {
   const handleOnClusterPress = async (cluster: any) => {
     await setLocationClick(cluster.geometry.coordinates);
     await toggleModal();
-    const clusters = superRef.current!.getClusters([-180, -85, 180, 85], 20);
 
     const cluster_id = cluster.properties.cluster_id;
 
-    const markers = superRef.current
-      ?.getLeaves(cluster_id)
+    let markers = superRef.current?.getLeaves(cluster_id);
+    let data;
+
+    markers = markers
       ?.map((elem: any, index) => elem.geometry.coordinates)
       .map((elem) => ({
         latitude: elem[1],
         longitude: elem[0],
       }));
+    data = reports.filter((elem) =>
+      markers.some(
+        (marker) => marker.latitude == elem.lat && marker.longitude == elem.lng
+      )
+    );
 
-    const data = reports.filter(
-      elem => markers.filter( marker => (marker.latitude == elem.lat) && (marker.longitude == elem.lng)  )
-    )
-    
+    console.log(data.length);
   };
   const handleOnMarkerPress = async (marker: any, report: any) => {
-    console.log(report);
     await setLocationClick([report["latitude"], report["longitude"]]);
     toggleModal();
+    const data = [report]
+    console.log(data.length);
+    
   };
   return (
     <>
