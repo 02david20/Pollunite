@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, Pressable, Image } from 'react-native';
+import { Avatar } from "@react-native-material/core";
 import ConfirmIcon from '../../assets/svg/confirm_icon.svg'
 import ConfirmActiveIcon from '../../assets/svg/confirm_active.svg'
 import LocationIcon from '../../assets/svg/location.svg'
@@ -35,10 +36,8 @@ const ResolvePost = (props) => {
     <View className="w-11/12 mx-auto my-5">
         <View className="w-full flex-row justify-between mx-auto mb-2">
           <View className="flex-row justify-between">
-          <Image 
-            source={{uri: post.avatarUrl}}
-            style={{width: 100, height: 100}} />
-            <View className="mt-5">
+            <Avatar image={{ uri: post.avatarUrl }} size={50} style={{marginLeft: 15, marginTop: 15, marginRight: 15}} />
+            <View className="mt-5 mr-10">
               <Text className="font-bold text-base text-gray-900">{post.name}</Text>
               <Text className="font-medium text-sm text-gray-500">{post.timestamp}</Text>
             </View>

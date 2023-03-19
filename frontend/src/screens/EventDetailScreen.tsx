@@ -169,7 +169,6 @@ const EventDetailScreen = ({ navigation, route }) => {
                     alert(
                       "Your giftcode is being sent to your email.This may take 5 minutes or more"
                     );
-                    console.log(radioButtons);
                   }}
                 />
                 <CustomButton label="Close" onPress={toggleModal} />

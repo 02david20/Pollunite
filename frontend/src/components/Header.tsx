@@ -20,13 +20,8 @@ const Header = (props: {title: string, isResolve: boolean, navigation: any, keys
           </View>
         </Pressable>
       }
-      {props.isResolve &&
-        <Pressable>
-          <View>
-            <Text className="text-center bg-blue-600 text-white px-3 py-2 rounded-xl mt-1">Submit</Text>
-          </View>
-        </Pressable>
-      }
+      {
+        !props.isResolve &&
         <Pressable onPress={()=> 
           props.navigation.navigate("Join", {clusterKey: props.keys[0]})
         }>
@@ -36,6 +31,7 @@ const Header = (props: {title: string, isResolve: boolean, navigation: any, keys
           </View>
           </View>
         </Pressable>
+      }
         <Pressable onPress={() => {props.navigation.navigate("LeaderBoard")}}>
           <RankIcon />
         </Pressable>

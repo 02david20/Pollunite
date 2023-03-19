@@ -57,7 +57,6 @@ const JoinScreen = ({ route, navigation }) => {
   const { clusterKey } = route.params;
 
   const handleSubmit = async () => {
-    console.log(pickedImagePath);
 
     const avatarUrl = await AsyncStorage.getItem("avatarUrl");
     const uid = await AsyncStorage.getItem("uid");
