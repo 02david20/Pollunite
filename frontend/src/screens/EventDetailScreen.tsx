@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Button,
 } from "react-native";
+import { PhotoGrid } from "react-native-photo-grid-frame";
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import NumericInput from "react-native-numeric-input";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -121,6 +122,30 @@ const EventDetailScreen = ({ navigation, route }) => {
           </Text>
 
           <CustomButton label="Exchange" onPress={toggleModal} />
+          <View className="items-center mt-5 flex-col space-y-3 flex-1">
+            <Text
+              className="text-bold font-lg"
+              style={{ fontSize: 20, fontWeight: 700 }}
+            >
+              Donate for us !
+            </Text>
+            {/* <Image
+              source={require("../../assets/imgs/qrcode.jpg")}
+              style={{ width: 200, height: 200 }}
+            /> */}
+            <ScrollView className="flex-1 w-[100px] h-[128px] mb-8">
+              <PhotoGrid
+                PhotosList={[
+                  {
+                    url: "https://www.saigonchildren.com/wp-content/uploads/2020/04/MM_QR_CODE_MOMOTUUM20191113-saigonchildren.png",
+                  },
+                ]}
+                height={200}
+                width={200}
+                borderRadius={10}
+              />
+            </ScrollView>
+          </View>
 
           <Modal
             testID={"modal"}
