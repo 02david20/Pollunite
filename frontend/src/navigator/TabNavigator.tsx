@@ -34,17 +34,6 @@ const TabNavigator = () => {
       screenOptions={tabOptions}
       shifting={true}
     >
-      {/* <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          tabBarLabel: "Home",
-          tabBarColor: "#1d192b25",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          ),
-        }}
-      /> */}
       <Tab.Screen
         name="Map"
         component={MapScreen}

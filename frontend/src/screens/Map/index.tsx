@@ -17,33 +17,46 @@ import {
 import { auth } from "../../services/firebaseAuth";
 import { LocationGeofencingEventType } from "expo-location";
 import { returnMarkerStyle } from "./helper";
-import {markerStyles} from "./styles";
-
+import { markerStyles, styles } from "./styles";
+import Modal from "react-native-modal";
+import CustomButton from "../../components/CustomButton";
+import { LogBox } from "react-native";
+// Ignore log notification by message
+LogBox.ignoreLogs(["Warning: ..."]);
+//Ignore all log notifications
+LogBox.ignoreAllLogs();
 
 const MapScreen = (): JSX.Element => {
   const mapRef = useRef();
   const superRef = useRef();
-
+  const [isModalVisible, setModalVisible] = useState<boolean>(false);
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
   const [position, setPosition] = useState<any>({
     latitude: 50,
     longitude: 50,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
-  const [zoom, setZoom] = useState<number>();
+
   const [locations, setLocations] = useState<any>();
   const [reports, setReports] = useState<any>();
-
+  const [locationClick, setLocationClick] = useState<number[]>();
 
   useEffect(() => {
     onSnapshot(
       query(collection(getFirestore(), "reports")),
       (querySnapshot) => {
         let temp: any = [];
-        querySnapshot.forEach((report) => temp.push(Object.create({
-          ...report.data(),
-          id: report.id
-        })));
+        querySnapshot.forEach((report) =>
+          temp.push(
+            Object.create({
+              ...report.data(),
+              id: report.id,
+            })
+          )
+        );
 
         setReports(temp);
         setLocations(
@@ -88,10 +101,6 @@ const MapScreen = (): JSX.Element => {
     return;
   };
 
-  const handleOnClusterPress = (cluster: any) => {
-    const clusters = superRef.current!.getClusters([-180, -85, 180, 85], 20);
-  };
-
   const handleRenderCluster = (cluster: any) => {
     const { id, geometry, onPress, properties } = cluster;
     const points = properties.point_count;
@@ -103,7 +112,7 @@ const MapScreen = (): JSX.Element => {
         key={`cluster-${id}`}
         coordinate={{
           longitude: geometry.coordinates[0],
-          latitude: geometry.coordinates[1]
+          latitude: geometry.coordinates[1],
         }}
         style={{ zIndex: points + 1 }}
         onPress={onPress}
@@ -112,43 +121,54 @@ const MapScreen = (): JSX.Element => {
           activeOpacity={0.5}
           style={[markerStyles.container, { width, height }]}
         >
-                  <View
-          style={[
-            markerStyles.wrapper,
-            {
-              backgroundColor: clusterColor,
-              width,
-              height,
-              borderRadius: width / 2,
-            },
-          ]}
-        />
-        <View
-          style={[
-            markerStyles.cluster,
-            {
-              backgroundColor: clusterColor,
-              width: size,
-              height: size,
-              borderRadius: size / 2,
-            },
-          ]}
-        >
-          <Text
+          <View
             style={[
-              markerStyles.text,
+              markerStyles.wrapper,
               {
-                color: clusterTextColor,
-                fontSize,
+                backgroundColor: clusterColor,
+                width,
+                height,
+                borderRadius: width / 2,
+              },
+            ]}
+          />
+          <View
+            style={[
+              markerStyles.cluster,
+              {
+                backgroundColor: clusterColor,
+                width: size,
+                height: size,
+                borderRadius: size / 2,
               },
             ]}
           >
-            {points}
-          </Text>
-        </View>
+            <Text
+              style={[
+                markerStyles.text,
+                {
+                  color: clusterTextColor,
+                  fontSize,
+                },
+              ]}
+            >
+              {points}
+            </Text>
+          </View>
         </TouchableOpacity>
       </Marker>
     );
+  };
+
+  const handleOnClusterPress = async (cluster: any) => {
+    await setLocationClick(cluster.geometry.coordinates);
+    await toggleModal();
+    await console.log(cluster);
+  };
+  const handleOnMarkerPress = async (marker: any, report: any) => {
+    console.log(report);
+    await setLocationClick([report["latitude"], report["longitude"]]);
+    toggleModal();
   };
   return (
     <>
@@ -180,9 +200,46 @@ const MapScreen = (): JSX.Element => {
       >
         {locations &&
           locations.map((report: any, index: number) => (
-            <Marker key={index} coordinate={report}></Marker>
+            <Marker
+              key={index}
+              coordinate={report}
+              onPress={(e) => handleOnMarkerPress(e, report)}
+            ></Marker>
           ))}
+        
       </MapView>
+      <Modal
+        testID={"modal"}
+        isVisible={isModalVisible}
+        /* onSwipeComplete={toggleModal} */
+        swipeDirection={["up", "left", "right", "down"]}
+        style={styles.view}
+      >
+        <View className="p-3 flex-col pt-auto bg-white items-center">
+          {locationClick && (
+            <View className="flex-col items-center">
+              <Text className="text-2xl font-bold mb-4">Location</Text>
+              <Text className="text-md font-light mb-4">
+                Latitude: {locationClick[0]}
+              </Text>
+              <Text className="text-md font-light mb-4">
+                Longitude: {locationClick[1]}
+              </Text>
+            </View>
+          )}
+          <View className="flex-row space-between items-center align-center mt-5">
+            <CustomButton
+              label="View Detail"
+              onPress={() => {
+                alert(
+                  "Your giftcode is being sent to your email.This may take 5 minutes or more"
+                );
+              }}
+            />
+            <CustomButton label="Close" onPress={toggleModal} />
+          </View>
+        </View>
+      </Modal>
     </>
   );
 };
