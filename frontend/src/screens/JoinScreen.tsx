@@ -27,8 +27,9 @@ type Resolve = {
   img?: string | undefined;
 };
 
-const JoinScreen = ({ navigation }) => {
+const JoinScreen = ({ route, navigation }) => {
   const [resolve, setResolve] = useState<Resolve>();
+  const [pickedImagePath, setPickedImagePath] = useState("");
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -51,10 +52,11 @@ const JoinScreen = ({ navigation }) => {
         }
       }
     })();
-  }, []);
+  }, [pickedImagePath]);
+
+  const { clusterKey } = route.params;
 
   const handleSubmit = async () => {
-    console.log(pickedImagePath);
 
     const avatarUrl = await AsyncStorage.getItem("avatarUrl");
     const uid = await AsyncStorage.getItem("uid");
@@ -67,11 +69,11 @@ const JoinScreen = ({ navigation }) => {
       desc: resolve?.desc,
       lng: resolve?.lng,
       lat: resolve?.lat,
+      clusterKey
     });
     setResolve({});
     setPickedImagePath("");
   };
-  const [pickedImagePath, setPickedImagePath] = useState("");
 
   const showImagePicker = async () => {
     // Ask the user for the permission to access the media library

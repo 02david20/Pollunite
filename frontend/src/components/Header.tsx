@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 import BackArrowIcon from '../../assets/svg/back_arrow.svg'
 import RankIcon from '../../assets/svg/rank.svg'
-const Header = (props: {title: string, isResolve: boolean, navigation: any}) => {
+const Header = (props: {title: string, isResolve: boolean, navigation: any, keys: any}) => {
   return (
     <View className="w-11/12 mx-auto flex-row justify-between mt-10">
       <View className="flex-row justify-between">
@@ -13,22 +13,17 @@ const Header = (props: {title: string, isResolve: boolean, navigation: any}) => 
       </View>
       {!props.isResolve &&
         <Pressable onPress={()=> 
-          props.navigation.navigate("Resolve")
+          props.navigation.navigate("Resolve", { keys: props.keys })
         }>
           <View>
             <Text className="text-center bg-green-600 text-white px-2 py-2 rounded-xl mt-1">Solution</Text>
           </View>
         </Pressable>
       }
-      {props.isResolve &&
-        <Pressable>
-          <View>
-            <Text className="text-center bg-blue-600 text-white px-3 py-2 rounded-xl mt-1">Submit</Text>
-          </View>
-        </Pressable>
-      }
+      {
+        !props.isResolve &&
         <Pressable onPress={()=> 
-          props.navigation.navigate("Join")
+          props.navigation.navigate("Join", {clusterKey: props.keys[0]})
         }>
           <View>
           <View>
@@ -36,6 +31,7 @@ const Header = (props: {title: string, isResolve: boolean, navigation: any}) => 
           </View>
           </View>
         </Pressable>
+      }
         <Pressable onPress={() => {props.navigation.navigate("LeaderBoard")}}>
           <RankIcon />
         </Pressable>

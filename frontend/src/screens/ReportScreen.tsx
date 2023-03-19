@@ -62,7 +62,6 @@ const ReportScreen = () => {
   }, [pickedImagePath]);
 
   const handleSubmit = async () => {
-    console.log(report);
     
     const avatarUrl = await AsyncStorage.getItem('avatarUrl');
     const uid = await AsyncStorage.getItem('uid');

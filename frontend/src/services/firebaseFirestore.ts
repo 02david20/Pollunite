@@ -8,7 +8,10 @@ import {
     getDoc,
     updateDoc,
     arrayUnion,
-    arrayRemove
+    arrayRemove,
+    query,
+    where,
+    getDocs
 } from 'firebase/firestore';
 import app from './firebaseApp';
 
@@ -79,6 +82,7 @@ const createResolve = async ({
     desc,
     lat,
     lng,
+    clusterKey
 }): Promise<string> => {
     const resolvesRef = collection(db, 'resolves');
     const data = {
@@ -88,6 +92,7 @@ const createResolve = async ({
         desc,
         lat,
         lng,
+        clusterKey,
         timestamp: serverTimestamp(),
         confirm: []
     }
@@ -101,6 +106,21 @@ const createResolve = async ({
     });
 
     return resolveRef.id;
+}
+
+const getResolve = async (keys: any) => {
+    const q = query(collection(db, 'resolves'), where("clusterKey", "in", keys));
+    const querySnapshot = await getDocs(q);
+    const res: any[] = [];
+    querySnapshot.forEach(d => {
+        const temp = d.data();
+        temp.timestamp = temp.timestamp.toDate().toISOString().slice(0,10);
+        res.push({
+            id: d.id,
+            ...temp
+        });
+    });
+    return res;
 }
 
 const updateProfileImage = async (uid: any, image: any) => {
@@ -160,5 +180,6 @@ export {
     uploadResolveImage,
     confirmResolve,
     removeConfirmResolve,
-    createResolve
+    createResolve,
+    getResolve
 }
