@@ -27,7 +27,7 @@ const LoginScreen = ({navigation}): JSX.Element => {
             <View className="mt-5">
               <Text className="text-center not-italic font-normal text-lg text-gray-600 mt-5">Or continue with</Text>
               <View className="w-4/5 mx-auto flex-row justify-between mt-5">
-                <Pressable>
+                <Pressable onPress={() => signIn('abc@gmail.com', '123456')}>
                   <View className="flex-row justify-between items-center bg-gray-200 rounded text-gray-600 text-center py-5 px-8">
                     <View className="flex-row justify-center items-center">
                       <GoogleIcon />
@@ -35,7 +35,7 @@ const LoginScreen = ({navigation}): JSX.Element => {
                     </View>
                   </View>
                 </Pressable>
-                <Pressable>
+                <Pressable onPress={() => signIn('abc@gmail.com', '123456')}>
                   <View className="flex-row justify-between items-center bg-gray-200 rounded text-gray-600 text-center py-5 px-8">
                     <View className="flex-row justify-center items-center">
                       <FacebookIcon />
