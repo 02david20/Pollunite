@@ -40,10 +40,10 @@ const data = [
         tags: ['organic']
     }
 ]
-const ViewAreaScreen = (): JSX.Element => {
+const ViewAreaScreen = ({navigation}): JSX.Element => {
     return (
-        <View className="w-full h-full">
-         <Header title="Area Detail" isResolve={false} />
+        <View className="w-full h-full bg-white">
+        <Header title="Area Detail" isResolve={false} navigation={navigation} />
          <FlatList
             data={data}
             ItemSeparatorComponent={() => <View style={{width: 10, height: 10}} />}

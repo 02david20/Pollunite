@@ -6,6 +6,7 @@ export type TabNavigatorParamList = {
   Profile: undefined;
   ViewArea: undefined;
   Resolve: undefined;
+  Join: undefined;
   EventsStack: undefined;
 };
 

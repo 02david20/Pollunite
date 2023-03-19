@@ -12,6 +12,7 @@ const SignUpScreen = ({navigation}): JSX.Element => {
     const [password, setPassword] = useState('');
 
     return (
+      <View className="bg-white">
         <View className="w-11/12 mx-auto h-full flex-col justify-center">
            <Text className="font-extrabold text-4xl text-center text-[#1976D2]">Sign Up</Text>
            <View>
@@ -45,15 +46,18 @@ const SignUpScreen = ({navigation}): JSX.Element => {
                   </View>
                 </Pressable>
               </View>
-              <Text className="text-center not-italic font-normal text-lg text-gray-600 mt-5">Have an account? 
-              <Pressable onPress={() => navigation.navigate("Login")}>
-                <Text className="text-black font-bold">
+              <View className="w-1/2 mx-auto flex-row justify-between">
+              <Text className="text-center not-italic font-normal text-lg text-gray-600 mt-5">Have an account?</Text>
+              <Pressable className="flex-col justify-center items-center" onPress={() => navigation.navigate("Signup")}>
+                <Text className="text-black font-bold text-lg text-center mt-5 ml-1">
                 Sign In
                 </Text>
-              </Pressable></Text>
+              </Pressable>
+              </View>
             </View>
            </View>
         </View>
+      </View>
     )
 }
 

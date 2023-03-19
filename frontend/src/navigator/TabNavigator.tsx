@@ -12,6 +12,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { TabNavigatorParamList } from "./types";
 import EventDetailScreen from "../screens/EventDetailScreen";
 import { createStackNavigator } from "@react-navigation/stack";
+import ViewAreaScreen from "../screens/ViewArea";
+import ResolveScreen from "../screens/ResolveScreen";
+import JoinScreen from "../screens/JoinScreen";
 const Tab = createMaterialBottomTabNavigator<TabNavigatorParamList>();
 const Stack = createStackNavigator();
 
@@ -26,6 +29,16 @@ const EventStack = () => {
     </Stack.Navigator>
   );
 };
+const MapStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Map" component={MapScreen} />
+      <Stack.Screen name="ViewArea" component={ViewAreaScreen} />
+      <Stack.Screen name="Resolve" component={ResolveScreen} />
+      <Stack.Screen name="Join" component={JoinScreen} />
+    </Stack.Navigator>
+  );
+};
 const TabNavigator = () => {
   return (
     <Tab.Navigator
@@ -36,8 +49,8 @@ const TabNavigator = () => {
       shifting={true}
     >
       <Tab.Screen
-        name="Map"
-        component={MapScreen}
+        name="MapStack"
+        component={MapStack}
         options={{
           tabBarLabel: "Map",
           tabBarIcon: ({ color }) => (
