@@ -43,8 +43,8 @@ const ResolvePost = (props) => {
             </View>
           </View>
         </View>
-        <View className="px-5">
-          <Text className="leading-6"><Text className="font-bold">Description:</Text> {post.desc}</Text>
+        <View className="">
+          <Text className="ml-5"><Text className="font-bold">Description:</Text> {post.desc}</Text>
           <Image 
             source={{uri: post.imageUrl}}
             style={{ width: '100%', height: 200, marginTop: 20}} />

@@ -14,6 +14,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ResolveScreen from "../screens/ResolveScreen";
 import JoinScreen from "../screens/JoinScreen";
 import ViewAreaScreen from "../screens/ViewArea";
+import LeaderBoardScreen from "../screens/LeaderBoardScreen";
 const Tab = createMaterialBottomTabNavigator<TabNavigatorParamList>();
 const Stack = createStackNavigator();
 
@@ -35,6 +36,7 @@ const MapStack = () => {
       <Stack.Screen name="ViewArea" component={ViewAreaScreen} />
       <Stack.Screen name="Resolve" component={ResolveScreen} />
       <Stack.Screen name="Join" component={JoinScreen} />
+      <Stack.Screen name="LeaderBoard" component={LeaderBoardScreen} />
     </Stack.Navigator>
   );
 };
@@ -45,7 +47,6 @@ const TabNavigator = () => {
       inactiveColor="#1d192b25"
       barStyle={{ backgroundColor: "#E8DEF8" }}
       screenOptions={tabOptions}
-      shifting={true}
     >
       <Tab.Screen
         name="MapStack"
@@ -75,7 +76,6 @@ const TabNavigator = () => {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="alarm-plus" color={color} size={26} />
           ),
-          tabBarBadge: 3,
         }}
       />
       <Tab.Screen

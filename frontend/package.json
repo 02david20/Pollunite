@@ -33,6 +33,7 @@
     "react-native": "0.71.3",
     "react-native-element-dropdown": "^2.8.1",
     "react-native-element-textinput": "^2.2.0",
+    "react-native-geocoder": "^0.5.0",
     "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-map-clustering": "^3.4.2",
