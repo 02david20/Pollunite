@@ -115,13 +115,13 @@ const ProfileScreen = (): JSX.Element => {
           editable={false}
         /> */}
         <View className="flex-col items-center space-y-2">
-          <Text style={{ fontSize: 18, fontWeight: 700, color: "#ff005c" }}>
+          <Text style={{ fontSize: 18, fontWeight: "700", color: "#ff005c" }}>
             1063
           </Text>
           <Text>Points</Text>
         </View>
         <View className="flex-col space-y-2 items-center border-x-2 px-9 mx-0">
-          <Text style={{ fontSize: 18, fontWeight: 700, color: "#ff005c" }}>
+          <Text style={{ fontSize: 18, fontWeight: "700", color: "#ff005c" }}>
             98
           </Text>
           <Text>Problems</Text>
