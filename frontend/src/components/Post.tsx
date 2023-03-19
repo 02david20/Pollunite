@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Pressable, Image } from 'react-native';
 import { Avatar } from "@react-native-material/core";
 import VoteIcon from '../../assets/svg/vote_icon.svg'
@@ -28,6 +28,8 @@ type PostSchema = {
 
 const Post = (props) => {
   let post: PostSchema = props.post;
+  const [isResolved, setIsResolved] = useState(post.isResolved);
+  const [upvote, setUpvote] = useState(post.upvote);
   const [currentUid, setCurrentUid] = React.useState<any>('');
 
   useEffect(() => {
@@ -45,21 +47,21 @@ const Post = (props) => {
             </View>
           </View>
         {(currentUid == post.uid)
-          ? <Pressable onPress={() => toggleResolvedStatus(post.id)}>
+          ? <Pressable onPress={() => {toggleResolvedStatus(post.id); setIsResolved(!isResolved)}}>
             <View>
               <View className="mt-5 mr-3">
-                <Text className="text-center bg-[#CBD5E1] text-white py-2 px-4 rounded-xl mt-1" style={post.isResolved ? { backgroundColor: '#73B94E' } : null}>Resolved</Text>
+                <Text className="text-center bg-[#CBD5E1] text-white py-2 px-4 rounded-xl mt-1" style={isResolved? { backgroundColor: '#73B94E' } : null}>Resolved</Text>
               </View>
             </View>
           </Pressable>
 
           : <View className="mt-9 mr-4">
-            <View className="w-4 h-4 rounded-full bg-gray-500" style={post.isResolved? { backgroundColor: '#73B94E' } : null}></View>
+            <View className="w-4 h-4 rounded-full bg-gray-500" style={isResolved? { backgroundColor: '#73B94E' } : null}></View>
           </View>
         }
         </View>
         <View className="px-5">
-          <Text className="leading-6"><Text className="font-bold">Tags:</Text>{}</Text>
+          <Text className="leading-6"><Text className="font-bold">Tags:</Text>{post.tags.join(' - ')}</Text>
           <Text className="leading-6"><Text className="font-bold">Description:</Text> {post.desc}</Text>
           <Image 
             source={{uri: post.imageUrl}}
@@ -68,10 +70,16 @@ const Post = (props) => {
         <View className="w-11/12 mx-auto flex-row justify-between mt-2">
             <View className="flex-row justify-between gap-4">
               <View className="flex-row justify-between items-center">
-                  <Pressable onPress={() => (post.upvote.includes(currentUid))? removeUpvoteReport(post.id, currentUid):upvoteReport(post.id, currentUid)}>
-                    {(post.upvote.includes(currentUid))? <VoteActiveIcon /> : <VoteIcon />}
+                  <Pressable onPress={() => {
+                    if (upvote.includes(currentUid)) {
+                      removeUpvoteReport(post.id, currentUid); 
+                      const newUpvote = upvote.filter((vote) => vote != currentUid);
+                      setUpvote(newUpvote);}
+                    else {upvoteReport(post.id, currentUid); setUpvote(upvote.concat([currentUid]))}
+                    }}>
+                    {(upvote.includes(currentUid))? <VoteActiveIcon /> : <VoteIcon />}
                   </Pressable>
-                  <Text className="ml-2" style={(post.upvote.includes(currentUid))? {color: '#F04A4A'}: null}>{post.upvote.length}</Text>
+                  <Text className="ml-2" style={(upvote.includes(currentUid))? {color: '#F04A4A'}: null}>{upvote.length}</Text>
               </View>
             </View>
             <View>
