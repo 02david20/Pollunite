@@ -15,19 +15,10 @@ import InputField from "../components/InputField";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 /* import axios from "axios";
 import { BASE_URL } from "../config/config"; */
-import AntDesign from "@expo/vector-icons/AntDesign";
-import { MultiSelect } from "react-native-element-dropdown";
 import * as ImagePicker from "expo-image-picker";
 import * as Location from "expo-location";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { createReport } from "../services/firebaseFirestore";
-import Header from "../components/Header";
-
-const data = [
-  { label: "Organic", value: "organic" },
-  { label: "Inorganic", value: "inorganic" },
-  { label: "Recycling", value: "recycling" },
-];
+import { createResolve } from "../services/firebaseFirestore";
 
 type Resolve = {
   lat?: number | undefined;
@@ -38,7 +29,6 @@ type Resolve = {
 
 const JoinScreen = ({ navigation }) => {
   const [resolve, setResolve] = useState<Resolve>();
-  const [selected, setSelected] = useState<string[]>([]);
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -69,7 +59,7 @@ const JoinScreen = ({ navigation }) => {
     const avatarUrl = await AsyncStorage.getItem("avatarUrl");
     const uid = await AsyncStorage.getItem("uid");
     const name = await AsyncStorage.getItem("name");
-    await createReport({
+    await createResolve({
       uid,
       name,
       avatarUrl,
@@ -77,10 +67,8 @@ const JoinScreen = ({ navigation }) => {
       desc: resolve?.desc,
       lng: resolve?.lng,
       lat: resolve?.lat,
-      tags: selected,
     });
     setResolve({});
-    setSelected([]);
     setPickedImagePath("");
   };
   const [pickedImagePath, setPickedImagePath] = useState("");
@@ -188,7 +176,7 @@ const JoinScreen = ({ navigation }) => {
         )}
         {pickedImagePath && (
           <CustomButton
-            label={"Create Report"}
+            label={"Create resolve"}
             onPress={() => {
               handleSubmit();
             }}

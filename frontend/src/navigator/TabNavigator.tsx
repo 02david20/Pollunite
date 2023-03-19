@@ -7,7 +7,6 @@ import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import ReportScreen from "../screens/ReportScreen";
 import MapScreen from "../screens/Map";
-import ViewAreaScreen from "../screens/ViewArea";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { TabNavigatorParamList } from "./types";
 import EventDetailScreen from "../screens/EventDetailScreen";
@@ -86,16 +85,6 @@ const TabNavigator = () => {
           tabBarLabel: "Profile",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="ViewArea"
-        component={ViewAreaScreen}
-        options={{
-          tabBarLabel: "Area",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="alarm-plus" color={color} size={26} />
           ),
         }}
       />

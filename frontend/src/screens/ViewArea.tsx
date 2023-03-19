@@ -3,6 +3,7 @@ import {Text, View, Image, Pressable, FlatList, ListRenderItemInfo} from 'react-
 import Header from '../components/Header';
 import Post from '../components/Post';
 type PostSchema = {
+    id: string,
     lat: number, 
     lng: number, 
     desc: string,
@@ -12,10 +13,12 @@ type PostSchema = {
     name: string,
     timestamp: string,
     isResolved: boolean,
-    tags: string[]
+    tags: string[],
+    upvote: string[]
 }
 const data = [
     {
+        id: 'BGTyQ48DWKDFjpLb1HCa',
         lat: 10.85, 
         lng: 106.5, 
         desc: 'There is a lot of garbage in this area that has not been resolved.',
@@ -25,9 +28,11 @@ const data = [
         name: 'Abc',
         timestamp: '2023 March 18',
         isResolved: false,
-        tags: ['organic', 'inorganic']
+        tags: ['organic', 'inorganic'],
+        upvote: [],
     },
     {
+        id: 'BGTyQ48DWKDFjpLb1HCa',
         lat: 10.89, 
         lng: 106.7, 
         desc: 'huhuhu',
@@ -37,13 +42,19 @@ const data = [
         name: 'Xyz',
         timestamp: '2023 March 25',
         isResolved: true,
-        tags: ['organic']
+        tags: ['organic'],
+        upvote: ['qLtoWzad7gYGQaygw3GB9JwyWt62']
     }
 ]
 const ViewAreaScreen = ({navigation}): JSX.Element => {
+    data.sort((a, b) => {
+        const s1 = a.upvote.length;
+        const s2 = b.upvote.length;
+        return s2 - s1;
+    });
     return (
-        <View className="w-full h-full bg-white">
-        <Header title="Area Detail" isResolve={false} navigation={navigation} />
+        <View className="w-full h-full">
+         <Header title="Area Detail" isResolve={false} navigation={navigation} />
          <FlatList
             data={data}
             ItemSeparatorComponent={() => <View style={{width: 10, height: 10}} />}

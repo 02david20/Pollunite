@@ -15,6 +15,13 @@ const uploadReportImage = async (id: string, image: any): Promise<string> => {
     return imageUrl;
 }
 
+const uploadResolveImage = async (id: string, image: any): Promise<string> => {
+    const imageRef = ref(storage, `resolve/${id}/image.png`);
+    await uploadBytes(imageRef, image);
+    const imageUrl = await getDownloadURL(imageRef);
+    return imageUrl;
+}
+
 const uploadProfileImage = async (uid: any, image: any): Promise<string> => {
     const imageRef = ref(storage, `profile/${uid}/avatar.png`);
     await uploadBytes(imageRef, image);
@@ -24,5 +31,6 @@ const uploadProfileImage = async (uid: any, image: any): Promise<string> => {
 
 export {
     uploadReportImage,
-    uploadProfileImage
+    uploadProfileImage,
+    uploadResolveImage,
 }

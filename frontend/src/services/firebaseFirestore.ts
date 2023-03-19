@@ -6,13 +6,16 @@ import {
     addDoc,
     serverTimestamp,
     getDoc,
-    updateDoc
+    updateDoc,
+    arrayUnion,
+    arrayRemove
 } from 'firebase/firestore';
 import app from './firebaseApp';
 
 import {
     uploadReportImage,
-    uploadProfileImage
+    uploadProfileImage,
+    uploadResolveImage
 } from './firebaseStorage';
 import { toBlob } from './imageService';
 
@@ -53,7 +56,8 @@ const createReport = async ({
         lng,
         tags,
         timestamp: serverTimestamp(),
-        isResolved: false
+        isResolved: false,
+        upvote: []
     }
     
     const reportRef = await addDoc(reportsRef, data);
@@ -65,6 +69,38 @@ const createReport = async ({
     });
 
     return reportRef.id;
+}
+
+const createResolve = async ({
+    uid, 
+    name,
+    avatarUrl, 
+    imagePath,
+    desc,
+    lat,
+    lng,
+}): Promise<string> => {
+    const resolvesRef = collection(db, 'resolves');
+    const data = {
+        uid,
+        name,
+        avatarUrl,
+        desc,
+        lat,
+        lng,
+        timestamp: serverTimestamp(),
+        confirm: []
+    }
+    
+    const resolveRef = await addDoc(resolvesRef, data);
+    const image = await toBlob(imagePath);
+    
+    const imageUrl = await uploadResolveImage(resolveRef.id, image);
+    await updateDoc(resolveRef, {
+        imageUrl
+    });
+
+    return resolveRef.id;
 }
 
 const updateProfileImage = async (uid: any, image: any) => {
@@ -86,9 +122,43 @@ const toggleResolvedStatus = async (id: string) => {
     }
 }
 
+const upvoteReport = async (id: string, uid: string) => {
+    const reportRef = doc(db, `reports/${id}`);
+    await updateDoc(reportRef, {
+        upvote: arrayUnion(uid)
+    });
+}
+
+const removeUpvoteReport = async (id: string, uid: string) => {
+    const reportRef = doc(db, `reports/${id}`);
+    await updateDoc(reportRef, {
+        upvote: arrayRemove(uid)
+    });
+}
+
+const confirmResolve = async (id: string, uid: string) => {
+    const resolveRef = doc(db, `resolves/${id}`);
+    await updateDoc(resolveRef, {
+        confirm: arrayUnion(uid)
+    });
+}
+
+const removeConfirmResolve = async (id: string, uid: string) => {
+    const resolveRef = doc(db, `resolves/${id}`);
+    await updateDoc(resolveRef, {
+        confirm: arrayRemove(uid)
+    });
+}
+
 export {
     addUser,
     createReport,
     updateProfileImage,
-    toggleResolvedStatus
+    toggleResolvedStatus,
+    upvoteReport,
+    removeUpvoteReport,
+    uploadResolveImage,
+    confirmResolve,
+    removeConfirmResolve,
+    createResolve
 }
