@@ -34,6 +34,7 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 - [:notebook\_with\_decorative\_cover: Table of Contents](#notebook_with_decorative_cover-table-of-contents)
   - [:star2: About the Project](#star2-about-the-project)
+    - [:see_no_evil: Run Instantly](#see_no_evil-run-instantly)
     - [:space\_invader: Tech Stack](#space_invader-tech-stack)
     - [:dart: Features](#dart-features)
     - [:art: Color Reference](#art-color-reference)
@@ -52,6 +53,14 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 <!-- About the Project -->
 ## :star2: About the Project
+
+<!-- Run Instantly -->
+### :see_no_evil: Run Instantly
+You would only need to download [Expo Go](https://expo.dev/) from your phone (Android/iOS accepted) to scan the QR Code.
+
+Then use Expo Go to scan the QR Code [here](https://expo.dev/@khasang12/mobile?serviceType=classic&distribution=expo-go). Type "abc@gmail.com" as email and "123456" as password to get authenticated.
+
+Voilà, Welcome to Pollunite. Please enjoy our app and tell us about your feelings !!
 
 <!-- TechStack -->
 ### :space_invader: Tech Stack
@@ -102,8 +111,12 @@ To run this project, you will need to add the following environment variables to
 
 `GOOGLE_API_KEY` (https://developers.google.com/maps/documentation/javascript/get-api-key)
 
+
+
+
 <!-- Getting Started -->
 ## 	:toolbox: Getting Started
+
 
 <!-- Prerequisites -->
 ### :bangbang: Prerequisites
@@ -168,7 +181,8 @@ To deploy this project run
   expo publish
 ```
 
-Expo CLI would subsequently create a site that links to the project's QR code. This time, anyone with Expo Go can run the app after scanning.//
+Expo CLI would subsequently create a site that links to the project's QR code. This time, anyone with Expo Go can run the app after scanning.
+
 P/s: An Expo account is required to execute this step.
 
 
