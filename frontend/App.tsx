@@ -13,6 +13,7 @@ import AuthStack from './src/navigator/AuthStack';
 import TabNavigator from './src/navigator/TabNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { collection, doc, getDoc, getFirestore } from 'firebase/firestore';
+import LoginScreen from './src/screens/LoginScreen';
 
 export default function App() {
     const [user, setUser] = useState<User|null>(null)

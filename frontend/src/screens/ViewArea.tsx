@@ -3,43 +3,47 @@ import {Text, View, Image, Pressable, FlatList, ListRenderItemInfo} from 'react-
 import Header from '../components/Header';
 import Post from '../components/Post';
 type PostSchema = {
-    lat?: number, 
-    lng?: number, 
+    lat: number, 
+    lng: number, 
     desc: string,
-    img: string,
+    imageUrl: string,
+    avatarUrl: string,
+    uid: string,
+    name: string,
     timestamp: string,
-    sender: string,
-    senderImg: string,
-    isAdmin?: boolean;
+    isResolved: boolean,
+    tags: string[]
 }
 const data = [
     {
-        lat: 10.80986,
-        lng: 106.60501,
+        lat: 10.85, 
+        lng: 106.5, 
         desc: 'There is a lot of garbage in this area that has not been resolved.',
-        img: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/garbage.jpg',
-        location: '123/14/2, Binh Hung Hoa, Binh Tan District, Ho Chi Minh City, Viet Nam',
+        imageUrl: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/garbage.jpg',
+        avatarUrl: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/avatarPost.png',
+        uid: '91SJKOl7mWNKA7nwcyDikGztEzj2',
+        name: 'Abc',
         timestamp: '2023 March 18',
-        sender: 'Đại Vinh',
-        senderImg: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/avatarPost.png',
-        isAdmin: true,
+        isResolved: false,
+        tags: ['organic', 'inorganic']
     },
     {
-        lat: 10.80986,
-        lng: 106.60501,
-        desc: 'There is a lot of bottles in this area.',
-        img: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/bottle_garbage.jpg',
-        location: '2/1, Linh Chieu, Thu Duc, Ho Chi Minh City, Viet Nam',
-        timestamp: '2023 March 19',
-        sender: 'Quang Khánh',
-        senderImg: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/khanh.png',
-        isAdmin: true,
+        lat: 10.89, 
+        lng: 106.7, 
+        desc: 'huhuhu',
+        imageUrl: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/bottle_garbage.jpg',
+        avatarUrl: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/khanh.png',
+        uid: '91SJKOl7mWNKA7nwcyDikGztE',
+        name: 'Xyz',
+        timestamp: '2023 March 25',
+        isResolved: true,
+        tags: ['organic']
     }
 ]
-const ViewAreaScreen = (): JSX.Element => {
+const ViewAreaScreen = ({navigation}): JSX.Element => {
     return (
-        <View className="w-full h-full">
-         <Header title="Area Detail" isResolve={false} />
+        <View className="w-full h-full bg-white">
+        <Header title="Area Detail" isResolve={false} navigation={navigation} />
          <FlatList
             data={data}
             ItemSeparatorComponent={() => <View style={{width: 10, height: 10}} />}
@@ -48,7 +52,7 @@ const ViewAreaScreen = (): JSX.Element => {
                     <Post post={item} />
                 </Pressable>
             )}
-            keyExtractor={(item: PostSchema) => item.img}
+            keyExtractor={(item: PostSchema) => item.imageUrl}
             numColumns={1}
             />
         </View>

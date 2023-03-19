@@ -22,6 +22,8 @@ import { markerStyles, styles } from "./styles";
 import Modal from "react-native-modal";
 import CustomButton from "../../components/CustomButton";
 import { LogBox } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 // Ignore log notification by message
 LogBox.ignoreLogs(["Warning: ..."]);
 //Ignore all log notifications
@@ -94,6 +96,7 @@ const MapScreen = (): JSX.Element => {
     })();
   }, []);
 
+  const navigation = useNavigation();
   const handleRegionChangeComplete = (region: any) => {
     return;
   };
@@ -242,9 +245,7 @@ const MapScreen = (): JSX.Element => {
             <CustomButton
               label="View Detail"
               onPress={() => {
-                alert(
-                  "Your giftcode is being sent to your email.This may take 5 minutes or more"
-                );
+                navigation.navigate("ViewArea", locationClick);
               }}
             />
             <CustomButton label="Close" onPress={toggleModal} />
