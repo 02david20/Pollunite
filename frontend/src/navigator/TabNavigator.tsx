@@ -28,6 +28,16 @@ const EventStack = () => {
     </Stack.Navigator>
   );
 };
+const MapStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Map" component={MapScreen} />
+      <Stack.Screen name="ViewArea" component={ViewAreaScreen} />
+      <Stack.Screen name="Resolve" component={ResolveScreen} />
+      <Stack.Screen name="Join" component={JoinScreen} />
+    </Stack.Navigator>
+  );
+};
 const TabNavigator = () => {
   return (
     <Tab.Navigator
@@ -38,8 +48,8 @@ const TabNavigator = () => {
       shifting={true}
     >
       <Tab.Screen
-        name="Map"
-        component={MapScreen}
+        name="MapStack"
+        component={MapStack}
         options={{
           tabBarLabel: "Map",
           tabBarIcon: ({ color }) => (
@@ -75,36 +85,6 @@ const TabNavigator = () => {
           tabBarLabel: "Profile",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="ViewArea"
-        component={ViewAreaScreen}
-        options={{
-          tabBarLabel: "ViewArea",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="map-marker" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen 
-        name="Resolve" 
-        component={ResolveScreen} 
-        options={{
-          tabBarLabel: "Resolve",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="map-marker" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen 
-        name="Join" 
-        component={JoinScreen} 
-        options={{
-          tabBarLabel: "Join",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="map-marker" color={color} size={26} />
           ),
         }}
       />

@@ -10,6 +10,7 @@ import Modal from "react-native-modal";
 import CustomButton from "../../components/CustomButton";
 
 import { LogBox } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 // Ignore log notification by message
 LogBox.ignoreLogs(["Warning: ..."]);
@@ -75,21 +76,15 @@ const MapScreen = (): JSX.Element => {
     })();
   }, []);
 
-  const handleRegionChangeComplete = (region: any) => {
-    return;
-  };
-
-  let marker1: any;
+  const navigation = useNavigation();
   const handleOnClusterPress = async (cluster: any) => {
-    
     await setLocationClick(cluster.geometry.coordinates);
     await toggleModal();
     await console.log(cluster);
   };
-  const handleOnMarkerPress = async (marker: any) => {
-    console.log(marker);
-    const p = await superRef.current!.points[0].geometry.coordinates;
-    await setLocationClick(p);
+  const handleOnMarkerPress = async (marker: any, report: any) => {
+    console.log(report);
+    await setLocationClick([report["latitude"], report["longitude"]]);
     toggleModal();
   };
   return (
@@ -119,10 +114,13 @@ const MapScreen = (): JSX.Element => {
         showsScale={true}
         onClusterPress={handleOnClusterPress}
         //onMarkerPress={handleOnMarkerPress}
-
       >
         {reports.map((report: any, index: number) => (
-          <Marker key={index} coordinate={report} ={handleOnMarkerPress}></Marker>
+          <Marker
+            key={index}
+            coordinate={report}
+            onPress={(e) => handleOnMarkerPress(e, report)}
+          ></Marker>
         ))}
       </MapView>
       <Modal
@@ -148,9 +146,7 @@ const MapScreen = (): JSX.Element => {
             <CustomButton
               label="View Detail"
               onPress={() => {
-                alert(
-                  "Your giftcode is being sent to your email.This may take 5 minutes or more"
-                );
+                navigation.navigate("ViewArea", locationClick);
               }}
             />
             <CustomButton label="Close" onPress={toggleModal} />

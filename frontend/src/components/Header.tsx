@@ -4,9 +4,9 @@ import BackArrowIcon from '../../assets/svg/back_arrow.svg'
 import RankIcon from '../../assets/svg/rank.svg'
 const Header = (props: {title: string, isResolve: boolean, navigation: any}) => {
   return (
-    <View className="w-11/12 mx-auto flex-row justify-between mt-16">
+    <View className="w-11/12 mx-auto flex-row justify-between mt-10">
       <View className="flex-row justify-between">
-        <Pressable onPress={() => props.navigation.navigate("ViewArea")}>
+        <Pressable onPress={() => props.navigation.goBack()}>
           <BackArrowIcon />
         </Pressable>
         <Text className="mt-2 text-xl leading-7 text-gray-600 text-center">{props.title}</Text>

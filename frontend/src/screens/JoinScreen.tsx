@@ -5,7 +5,9 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Pressable,
 } from "react-native";
+import BackArrowIcon from "../../assets/svg/back_arrow.svg";
 import React, { useState, useEffect } from "react";
 import CustomButton from "../components/CustomButton";
 import InputField from "../components/InputField";
@@ -16,9 +18,10 @@ import { BASE_URL } from "../config/config"; */
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { MultiSelect } from "react-native-element-dropdown";
 import * as ImagePicker from "expo-image-picker";
-import * as Location from 'expo-location';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Location from "expo-location";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createReport } from "../services/firebaseFirestore";
+import Header from "../components/Header";
 
 const data = [
   { label: "Organic", value: "organic" },
@@ -33,38 +36,39 @@ type Resolve = {
   img?: string | undefined;
 };
 
-const JoinScreen = () => {
+const JoinScreen = ({ navigation }) => {
   const [resolve, setResolve] = useState<Resolve>();
   const [selected, setSelected] = useState<string[]>([]);
-  useEffect(() => { 
-    (async () => { 
-        let { status } = await Location.requestForegroundPermissionsAsync(); 
-         
-        if (status !== 'granted') { 
-            alert('Permission to access location was denied') 
-        }else{ 
-            try{ 
-                let location = await Location.getCurrentPositionAsync({}); 
-                setResolve({
-                    ...resolve,
-                    lat: location.coords.latitude, 
-                    lng: location.coords.longitude, 
-                }) 
-            }catch(e){ 
-                alert('We could not find your position. Please make sure your location service provider is on'); 
-                console.log('Error while trying to get location: ', e); 
-            } 
-        } 
-      })() 
-    ; 
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+
+      if (status !== "granted") {
+        alert("Permission to access location was denied");
+      } else {
+        try {
+          let location = await Location.getCurrentPositionAsync({});
+          setResolve({
+            ...resolve,
+            lat: location.coords.latitude,
+            lng: location.coords.longitude,
+          });
+        } catch (e) {
+          alert(
+            "We could not find your position. Please make sure your location service provider is on"
+          );
+          console.log("Error while trying to get location: ", e);
+        }
+      }
+    })();
   }, []);
 
   const handleSubmit = async () => {
     console.log(pickedImagePath);
-    
-    const avatarUrl = await AsyncStorage.getItem('avatarUrl');
-    const uid = await AsyncStorage.getItem('uid');
-    const name = await AsyncStorage.getItem('name');
+
+    const avatarUrl = await AsyncStorage.getItem("avatarUrl");
+    const uid = await AsyncStorage.getItem("uid");
+    const name = await AsyncStorage.getItem("name");
     await createReport({
       uid,
       name,
@@ -116,6 +120,14 @@ const JoinScreen = () => {
 
   return (
     <View className="flex-1 bg-[#fff] pt-5 w-full mx-auto h-full flex-col justify-center">
+      <View className="flex-row justify-start mx-2 mt-3">
+        <Pressable onPress={() => navigation.goBack()}>
+          <BackArrowIcon />
+        </Pressable>
+        <Text className="mt-2 text-xl leading-7 text-gray-600 text-center">
+          Join
+        </Text>
+      </View>
       <ScrollView className="px-5 pt-5">
         <Text className="font-extrabold text-4xl text-center text-[#4CAF50] mb-10">
           New Resolve
