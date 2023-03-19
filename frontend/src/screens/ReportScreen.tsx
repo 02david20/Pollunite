@@ -4,23 +4,21 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  PermissionsAndroid,
   Image,
-  Button,
 } from "react-native";
-import React, { useState } from "react";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import React, { useState, useEffect } from "react";
 import CustomButton from "../components/CustomButton";
 import InputField from "../components/InputField";
-import { Dropdown } from "react-native-element-dropdown";
 //import AsyncStorage from "@react-native-async-storage/async-storage";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { useNavigation } from "@react-navigation/native";
 /* import axios from "axios";
 import { BASE_URL } from "../config/config"; */
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { MultiSelect } from "react-native-element-dropdown";
 import * as ImagePicker from "expo-image-picker";
+import * as Location from 'expo-location';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createReport } from "../services/firebaseFirestore";
 
 const data = [
   { label: "Organic", value: "organic" },
@@ -38,10 +36,48 @@ type Report = {
 const AddGardenScreen = () => {
   const [report, setReport] = useState<Report>();
   const [selected, setSelected] = useState<string[]>([]);
+  useEffect(() => { 
+    (async () => { 
+        let { status } = await Location.requestForegroundPermissionsAsync(); 
+         
+        if (status !== 'granted') { 
+            alert('Permission to access location was denied') 
+        }else{ 
+            try{ 
+                let location = await Location.getCurrentPositionAsync({}); 
+                setReport({
+                    ...report,
+                    lat: location.coords.latitude, 
+                    lng: location.coords.longitude, 
+                }) 
+            }catch(e){ 
+                alert('We could not find your position. Please make sure your location service provider is on'); 
+                console.log('Error while trying to get location: ', e); 
+            } 
+        } 
+      })() 
+    ; 
+  }, []);
 
-  const handleSubmit = () => {
-    const finalReport = {...report,tags:selected,file:pickedImagePath}
-    console.log(finalReport);
+  const handleSubmit = async () => {
+    console.log(pickedImagePath);
+    
+    const avatarUrl = await AsyncStorage.getItem('avatarUrl');
+    const uid = await AsyncStorage.getItem('uid');
+    const name = await AsyncStorage.getItem('name');
+    await createReport({
+      uid,
+      name,
+      avatarUrl,
+      imagePath: pickedImagePath,
+      desc: report?.desc,
+      lng: report?.lng,
+      lat: report?.lat,
+      tags: selected,
+    });
+    setReport({});
+    setSelected([]);
+    setPickedImagePath("");
   };
   const [pickedImagePath, setPickedImagePath] = useState("");
 
@@ -84,46 +120,6 @@ const AddGardenScreen = () => {
         <Text className="font-extrabold text-4xl text-center text-[#4CAF50] mb-5 ">
           New Report
         </Text>
-
-        <InputField
-          label={"Latitude"}
-          icon={
-            <MaterialIcons
-              name="my-location"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
-            />
-          }
-          value={report?.lat}
-          inputType=""
-          fieldButtonFunction={""}
-          fieldButtonLabel={""}
-          onChangeText={(t: number) => {
-            setReport({ ...report, lat: t });
-          }}
-          keyboardType="numeric"
-        />
-
-        <InputField
-          label={"Longitude"}
-          icon={
-            <MaterialIcons
-              name="my-location"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
-            />
-          }
-          value={report?.lng}
-          inputType=""
-          fieldButtonFunction={""}
-          fieldButtonLabel={""}
-          onChangeText={(t: number) => {
-            setReport({ ...report, lng: t });
-          }}
-          keyboardType="numeric"
-        />
 
         <InputField
           label={"Description"}

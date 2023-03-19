@@ -15,7 +15,8 @@ import {
     Avatar
 } from "@react-native-material/core";
 import * as ImagePicker from 'expo-image-picker';
-import { updateProfileImage } from '../services/firebaseFirestore'
+import { updateProfileImage } from '../services/firebaseFirestore';
+import { toBlob } from '../services/imageService';
 
 const ProfileScreen = (): JSX.Element => {
     const [profile, setProfile] = useState<DocumentData|undefined>({});
@@ -39,19 +40,7 @@ const ProfileScreen = (): JSX.Element => {
         });
 
         if (!result.canceled) {
-            const blob = await new Promise((resolve, reject) => {
-                const xhr = new XMLHttpRequest();
-                xhr.onload = function() {
-                  resolve(xhr.response);
-                };
-                xhr.onerror = function(e) {
-                  console.log(e);
-                  reject(new TypeError('Network request failed'));
-                };
-                xhr.responseType = 'blob';
-                xhr.open('GET', result.assets![0]?.uri, true);
-                xhr.send(null);
-            });
+            const blob = await toBlob(result.assets![0]?.uri);
             
             updateProfileImage(currentUser?.uid, blob);
         }
