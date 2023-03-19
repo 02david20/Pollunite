@@ -7,6 +7,7 @@ export type TabNavigatorParamList = {
   ViewArea: undefined;
   Resolve: undefined;
   Join: undefined;
+  EventsStack: undefined;
 };
 
 export type DrawerNavigatorParamList = {

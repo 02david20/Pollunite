@@ -45,6 +45,7 @@ const ReportScreen = () => {
         }else{ 
             try{ 
                 let location = await Location.getCurrentPositionAsync({}); 
+               
                 setReport({
                     ...report,
                     lat: location.coords.latitude, 

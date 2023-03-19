@@ -1,20 +1,33 @@
 import * as React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, TouchableOpacity } from "react-native";
 import MapView from "react-native-map-clustering";
-import { Marker, Callout } from "react-native-maps";
-import styles from "./styles";
+import { Marker } from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps";
 import { useEffect, useRef, useState } from "react";
 import * as Location from "expo-location";
+import {
+  collection,
+  doc,
+  DocumentData,
+  getFirestore,
+  onSnapshot,
+  query,
+  QuerySnapshot,
+} from "firebase/firestore";
+import { auth } from "../../services/firebaseAuth";
+import { LocationGeofencingEventType } from "expo-location";
+import { returnMarkerStyle } from "./helper";
+import { markerStyles, styles } from "./styles";
 import Modal from "react-native-modal";
 import CustomButton from "../../components/CustomButton";
-
 import { LogBox } from "react-native";
+<<<<<<< HEAD
 import { useNavigation } from "@react-navigation/native";
 
+=======
+>>>>>>> a4d254e504377f96f254af25253bf0e3519ed345
 // Ignore log notification by message
 LogBox.ignoreLogs(["Warning: ..."]);
-
 //Ignore all log notifications
 LogBox.ignoreAllLogs();
 
@@ -31,25 +44,38 @@ const MapScreen = (): JSX.Element => {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
+
+  const [locations, setLocations] = useState<any>();
+  const [reports, setReports] = useState<any>();
   const [locationClick, setLocationClick] = useState<number[]>();
-  const [zoom, setZoom] = useState<number>();
-  const [errorMsg, setErrorMsg] = useState<String>();
-  const [reports, setReports] = useState([
-    { latitude: 10.8757936, longitude: 106.8091124 },
-    { latitude: 10.8758056, longitude: 106.8090912 },
-    { latitude: 10.8749335, longitude: 106.8208019 },
-    { latitude: 10.8739366, longitude: 106.8108019 },
-    { latitude: 10.8739466, longitude: 106.8108019 },
-    { latitude: 10.8789367, longitude: 106.9098019 },
-    { latitude: 10.8789367, longitude: 106.9098019 },
-    { latitude: 10.8789367, longitude: 106.9098019 },
-    { latitude: 10.8799367, longitude: 106.8098019 },
-    { latitude: 12.8789364, longitude: 107.8098019 },
-    { latitude: 12.8989364, longitude: 107.8098019 },
-    { latitude: 13.8789364, longitude: 102.8098019 },
-    { latitude: 20.8789364, longitude: 103.8098019 },
-    { latitude: 30.8789364, longitude: 104.8098019 },
-  ]);
+
+  useEffect(() => {
+    onSnapshot(
+      query(collection(getFirestore(), "reports")),
+      (querySnapshot) => {
+        let temp: any = [];
+        querySnapshot.forEach((report) =>
+          temp.push(
+            Object.create({
+              ...report.data(),
+              id: report.id,
+            })
+          )
+        );
+
+        setReports(temp);
+        setLocations(
+          temp.map((report: any) =>
+            Object.create({
+              latitude: report.lat,
+              longitude: report.lng,
+            })
+          )
+        );
+      }
+    );
+  }, []);
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -77,6 +103,69 @@ const MapScreen = (): JSX.Element => {
   }, []);
 
   const navigation = useNavigation();
+  const handleRegionChangeComplete = (region: any) => {
+    return;
+  };
+
+  const handleRenderCluster = (cluster: any) => {
+    const { id, geometry, onPress, properties } = cluster;
+    const points = properties.point_count;
+    const clusterColor = "red";
+    const clusterTextColor = "white";
+    const { width, height, fontSize, size } = returnMarkerStyle(points);
+    return (
+      <Marker
+        key={`cluster-${id}`}
+        coordinate={{
+          longitude: geometry.coordinates[0],
+          latitude: geometry.coordinates[1],
+        }}
+        style={{ zIndex: points + 1 }}
+        onPress={onPress}
+      >
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={[markerStyles.container, { width, height }]}
+        >
+          <View
+            style={[
+              markerStyles.wrapper,
+              {
+                backgroundColor: clusterColor,
+                width,
+                height,
+                borderRadius: width / 2,
+              },
+            ]}
+          />
+          <View
+            style={[
+              markerStyles.cluster,
+              {
+                backgroundColor: clusterColor,
+                width: size,
+                height: size,
+                borderRadius: size / 2,
+              },
+            ]}
+          >
+            <Text
+              style={[
+                markerStyles.text,
+                {
+                  color: clusterTextColor,
+                  fontSize,
+                },
+              ]}
+            >
+              {points}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </Marker>
+    );
+  };
+
   const handleOnClusterPress = async (cluster: any) => {
     await setLocationClick(cluster.geometry.coordinates);
     await toggleModal();
@@ -104,15 +193,16 @@ const MapScreen = (): JSX.Element => {
         mapType="hybrid"
         region={position}
         showsUserLocation={true}
-        minZoom={20}
+        minZoom={18}
         maxZoom={20}
         maxZoomLevel={18}
         minPoints={2}
         radius={60}
-        //onRegionChangeComplete={handleRegionChangeComplete}
+        onRegionChangeComplete={handleRegionChangeComplete}
         superClusterRef={superRef}
         showsScale={true}
         onClusterPress={handleOnClusterPress}
+<<<<<<< HEAD
         //onMarkerPress={handleOnMarkerPress}
       >
         {reports.map((report: any, index: number) => (
@@ -122,6 +212,19 @@ const MapScreen = (): JSX.Element => {
             onPress={(e) => handleOnMarkerPress(e, report)}
           ></Marker>
         ))}
+=======
+        renderCluster={handleRenderCluster}
+      >
+        {locations &&
+          locations.map((report: any, index: number) => (
+            <Marker
+              key={index}
+              coordinate={report}
+              onPress={(e) => handleOnMarkerPress(e, report)}
+            ></Marker>
+          ))}
+        
+>>>>>>> a4d254e504377f96f254af25253bf0e3519ed345
       </MapView>
       <Modal
         testID={"modal"}
