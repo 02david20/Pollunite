@@ -13,10 +13,34 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import CustomButton from "../components/CustomButton";
 import Modal from "react-native-modal";
+import RadioGroup from "react-native-radio-buttons-group";
+
+const radioButtonsData = [
+  {
+    id: "1", // acts as primary key, should be unique and non-empty string
+    label: "Option 1 - 10% discount",
+    value: 100,
+  },
+  {
+    id: "2", // acts as primary key, should be unique and non-empty string
+    label: "Option 2 - 20% discount",
+    value: 200,
+  },
+  {
+    id: "3", // acts as primary key, should be unique and non-empty string
+    label: "Option 3 - 30% discount",
+    value: 300,
+  },
+];
 
 const EventDetailScreen = ({ navigation, route }) => {
   const { id, dateStart, dateEnd, title, numParticipants, imgUrl, vouchers } =
     route.params;
+  const [radioButtons, setRadioButtons] = useState(radioButtonsData);
+
+  function onPressRadioButton(radioButtonsArray) {
+    setRadioButtons(radioButtonsArray);
+  }
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -105,26 +129,23 @@ const EventDetailScreen = ({ navigation, route }) => {
             swipeDirection={["up", "left", "right", "down"]}
             style={styles.view}
           >
-            <View style={styles.content}>
-              <Text style={styles.contentTitle}>Your Current Points: 123</Text>
-              <NumericInput
-                value={value}
-                onChange={(value) => setValue(value)}
-                onLimitReached={(isMax, msg) => console.log(isMax, msg)}
-                totalWidth={240}
-                totalHeight={50}
-                iconSize={25}
-                step={1}
-                valueType="real"
-                rounded
-                textColor="#B0228C"
-                rightButtonBackgroundColor="#EA3788"
-                leftButtonBackgroundColor="#E56B70"
+            <View className="bg-white p-3 flex-col items-center">
+              <Text className="text-2xl font-bold mb-4">
+                Choose your voucher
+              </Text>
+              <RadioGroup
+                radioButtons={radioButtons}
+                onPress={onPressRadioButton}
               />
-              <View className="flex-col space-between w-full items-center align-center mt-5 space-y-2">
+              <View className="flex-row space-between items-center align-center mt-5">
                 <CustomButton
-                  label="Confirm"
-                  onPress={() => alert("Got exchanged " + value + " tickets")}
+                  label="Redeem"
+                  onPress={() => {
+                    alert(
+                      "Your giftcode is being sent to your email.This may take 5 minutes or more"
+                    );
+                    console.log(radioButtons);
+                  }}
                 />
                 <CustomButton label="Close" onPress={toggleModal} />
               </View>

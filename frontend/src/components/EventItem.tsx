@@ -3,6 +3,7 @@ import React from "react";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
+import * as Progress from "react-native-progress";
 
 const EventItem = ({ item, navigation }) => {
   const { id, dateStart, dateEnd, title, numParticipants, imgUrl, vouchers } =
@@ -50,6 +51,7 @@ const EventItem = ({ item, navigation }) => {
             {vouchers} <Text className="font-normal">vouchers left</Text>
           </Text>
         </View>
+        <Progress.Bar progress={vouchers/500} width={200} />
       </View>
     </TouchableOpacity>
   );
