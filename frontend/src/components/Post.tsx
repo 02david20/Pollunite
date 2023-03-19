@@ -57,7 +57,7 @@ const Post = (props) => {
         }
         </View>
         <View className="px-5">
-          <Text className="leading-6"><Text className="font-bold">Tags:</Text>{post.tags.join(' - ')}</Text>
+          <Text className="leading-6"><Text className="font-bold">Tags:</Text>{}</Text>
           <Text className="leading-6"><Text className="font-bold">Description:</Text> {post.desc}</Text>
           <Image 
             source={{uri: post.imageUrl}}

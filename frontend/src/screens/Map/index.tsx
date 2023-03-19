@@ -21,11 +21,8 @@ import { markerStyles, styles } from "./styles";
 import Modal from "react-native-modal";
 import CustomButton from "../../components/CustomButton";
 import { LogBox } from "react-native";
-<<<<<<< HEAD
 import { useNavigation } from "@react-navigation/native";
 
-=======
->>>>>>> a4d254e504377f96f254af25253bf0e3519ed345
 // Ignore log notification by message
 LogBox.ignoreLogs(["Warning: ..."]);
 //Ignore all log notifications
@@ -202,17 +199,6 @@ const MapScreen = (): JSX.Element => {
         superClusterRef={superRef}
         showsScale={true}
         onClusterPress={handleOnClusterPress}
-<<<<<<< HEAD
-        //onMarkerPress={handleOnMarkerPress}
-      >
-        {reports.map((report: any, index: number) => (
-          <Marker
-            key={index}
-            coordinate={report}
-            onPress={(e) => handleOnMarkerPress(e, report)}
-          ></Marker>
-        ))}
-=======
         renderCluster={handleRenderCluster}
       >
         {locations &&
@@ -224,7 +210,6 @@ const MapScreen = (): JSX.Element => {
             ></Marker>
           ))}
         
->>>>>>> a4d254e504377f96f254af25253bf0e3519ed345
       </MapView>
       <Modal
         testID={"modal"}
