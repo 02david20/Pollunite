@@ -36,6 +36,7 @@ type Report = {
 const ReportScreen = () => {
   const [report, setReport] = useState<Report>();
   const [selected, setSelected] = useState<string[]>([]);
+  const [pickedImagePath, setPickedImagePath] = useState("");
   useEffect(() => { 
     (async () => { 
         let { status } = await Location.requestForegroundPermissionsAsync(); 
@@ -58,10 +59,10 @@ const ReportScreen = () => {
         } 
       })() 
     ; 
-  }, []);
+  }, [pickedImagePath]);
 
   const handleSubmit = async () => {
-    console.log(pickedImagePath);
+    console.log(report);
     
     const avatarUrl = await AsyncStorage.getItem('avatarUrl');
     const uid = await AsyncStorage.getItem('uid');
@@ -80,7 +81,7 @@ const ReportScreen = () => {
     setSelected([]);
     setPickedImagePath("");
   };
-  const [pickedImagePath, setPickedImagePath] = useState("");
+
 
   const showImagePicker = async () => {
     // Ask the user for the permission to access the media library
