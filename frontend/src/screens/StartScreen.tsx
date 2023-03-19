@@ -2,7 +2,7 @@ import * as React from 'react'
 import {Text, View, Image, Pressable} from 'react-native'
 const StartScreen = ({navigation}): JSX.Element => {
     return (
-        <View className="w-full h-full flex-col justify-center items-center">
+        <View className="w-full h-full flex-col justify-center items-center bg-white">
            <Image
             source={require('../../assets/imgs/logo.png')}
             className="w-400 h-400"
