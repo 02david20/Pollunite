@@ -10,33 +10,12 @@ const Stack = createStackNavigator();
 
 const AuthStack = () => {
     return (
-        <Stack.Navigator>
-            <Stack.Screen
-                name="Start"
-                component={StartScreen}
-            />
-            <Stack.Screen
-                name="Login"
-                component={LoginScreen}
-            />
-            <Stack.Screen
-                name="Signup"
-                component={SignUpScreen}
-            />
-            <Stack.Screen
-                name="ViewArea"
-                component={ViewAreaScreen}
-            />
-            <Stack.Screen
-                name="Resolve"
-                component={ResolveScreen}
-            />
-            <Stack.Screen
-                name="Join"
-                component={JoinScreen}
-            />
-        </Stack.Navigator>
-    )
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Start" component={StartScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Signup" component={SignUpScreen} />
+      </Stack.Navigator>
+    );
 }
 
 export default AuthStack;

@@ -48,7 +48,7 @@ const SignUpScreen = ({navigation}): JSX.Element => {
               </View>
               <View className="w-1/2 mx-auto flex-row justify-between">
               <Text className="text-center not-italic font-normal text-lg text-gray-600 mt-5">Have an account?</Text>
-              <Pressable className="flex-col justify-center items-center" onPress={() => navigation.navigate("Signup")}>
+              <Pressable className="flex-col justify-center items-center" onPress={() => navigation.navigate("Login")}>
                 <Text className="text-black font-bold text-lg text-center mt-5 ml-1">
                 Sign In
                 </Text>
