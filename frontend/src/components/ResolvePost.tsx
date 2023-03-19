@@ -24,6 +24,7 @@ type ResolveSchema = {
 
 const ResolvePost = (props) => {
   let post: ResolveSchema = props.post;
+  const [confirm, setConfirm] = React.useState(post.confirm);
   const [currentUid, setCurrentUid] = React.useState<any>('');
 
   useEffect(() => {
@@ -52,10 +53,16 @@ const ResolvePost = (props) => {
         <View className="w-11/12 mx-auto flex-row justify-between mt-2">
             <View className="flex-row justify-between gap-4">
               <View className="flex-row justify-between items-center">
-                  <Pressable onPress={() => (post.confirm.includes(currentUid))? removeConfirmResolve(post.id, currentUid):confirmResolve(post.id, currentUid)}>
-                    {(post.confirm.includes(currentUid))? <ConfirmActiveIcon /> : <ConfirmIcon />}
+                  <Pressable onPress={() => {
+                    if (confirm.includes(currentUid)) {
+                        removeConfirmResolve(post.id, currentUid); 
+                        const newConfirm = confirm.filter((c) => c != currentUid);
+                        setConfirm(newConfirm);}
+                      else {confirmResolve(post.id, currentUid); setConfirm(confirm.concat([currentUid]))}
+                  }}>
+                    {(confirm.includes(currentUid))? <ConfirmActiveIcon /> : <ConfirmIcon />}
                   </Pressable>
-                  <Text className="ml-2" style={(post.confirm.includes(currentUid))? {color: '#66f542'}: null}>{post.confirm.length}</Text>
+                  <Text className="ml-2" style={(confirm.includes(currentUid))? {color: '#66f542'}: null}>{confirm.length}</Text>
               </View>
             </View>
             <View>
