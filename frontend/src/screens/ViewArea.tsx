@@ -16,37 +16,39 @@ type PostSchema = {
     tags: string[],
     upvote: string[]
 }
-const data = [
-    {
-        id: 'BGTyQ48DWKDFjpLb1HCa',
-        lat: 10.85, 
-        lng: 106.5, 
-        desc: 'There is a lot of garbage in this area that has not been resolved.',
-        imageUrl: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/garbage.jpg',
-        avatarUrl: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/avatarPost.png',
-        uid: '91SJKOl7mWNKA7nwcyDikGztEzj2',
-        name: 'Abc',
-        timestamp: '2023 March 18',
-        isResolved: false,
-        tags: ['organic', 'inorganic'],
-        upvote: [],
-    },
-    {
-        id: 'BGTyQ48DWKDFjpLb1HCa',
-        lat: 10.89, 
-        lng: 106.7, 
-        desc: 'huhuhu',
-        imageUrl: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/bottle_garbage.jpg',
-        avatarUrl: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/khanh.png',
-        uid: '91SJKOl7mWNKA7nwcyDikGztE',
-        name: 'Xyz',
-        timestamp: '2023 March 25',
-        isResolved: true,
-        tags: ['organic'],
-        upvote: ['qLtoWzad7gYGQaygw3GB9JwyWt62']
-    }
-]
-const ViewAreaScreen = ({navigation}): JSX.Element => {
+// const data = [
+//     {
+//         id: 'BGTyQ48DWKDFjpLb1HCa',
+//         lat: 10.85, 
+//         lng: 106.5, 
+//         desc: 'There is a lot of garbage in this area that has not been resolved.',
+//         imageUrl: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/garbage.jpg',
+//         avatarUrl: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/avatarPost.png',
+//         uid: '91SJKOl7mWNKA7nwcyDikGztEzj2',
+//         name: 'Abc',
+//         timestamp: '2023 March 18',
+//         isResolved: false,
+//         tags: ['organic', 'inorganic'],
+//         upvote: [],
+//     },
+//     {
+//         id: 'BGTyQ48DWKDFjpLb1HCa',
+//         lat: 10.89, 
+//         lng: 106.7, 
+//         desc: 'huhuhu',
+//         imageUrl: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/bottle_garbage.jpg',
+//         avatarUrl: 'https://raw.githubusercontent.com/anduckhmt146/resource/master/public/khanh.png',
+//         uid: '91SJKOl7mWNKA7nwcyDikGztE',
+//         name: 'Xyz',
+//         timestamp: '2023 March 25',
+//         isResolved: true,
+//         tags: ['organic'],
+//         upvote: ['qLtoWzad7gYGQaygw3GB9JwyWt62']
+//     }
+// ]
+const ViewAreaScreen = ({route, navigation}): JSX.Element => {
+    const { data } = route.params;
+
     data.sort((a, b) => {
         const s1 = a.upvote.length;
         const s2 = b.upvote.length;

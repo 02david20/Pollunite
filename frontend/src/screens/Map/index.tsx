@@ -2,7 +2,6 @@ import * as React from "react";
 import { View, Text, Button, TouchableOpacity } from "react-native";
 import MapView from "react-native-map-clustering";
 import { Marker } from "react-native-maps";
-import { PROVIDER_GOOGLE } from "react-native-maps";
 import { useEffect, useRef, useState } from "react";
 import * as Location from "expo-location";
 import {
@@ -22,14 +21,13 @@ import { markerStyles, styles } from "./styles";
 import Modal from "react-native-modal";
 import CustomButton from "../../components/CustomButton";
 import { LogBox } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 // Ignore log notification by message
 LogBox.ignoreLogs(["Warning: ..."]);
 //Ignore all log notifications
 LogBox.ignoreAllLogs();
 
-const MapScreen = (): JSX.Element => {
+const MapScreen = ({navigation}): JSX.Element => {
   const mapRef = useRef();
   const superRef = useRef();
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
@@ -46,6 +44,7 @@ const MapScreen = (): JSX.Element => {
   const [locations, setLocations] = useState<any>();
   const [reports, setReports] = useState<any>();
   const [locationClick, setLocationClick] = useState<number[]>();
+  const [selectedReports, setSelectedReports] = useState<any>([]);
 
   useEffect(() => {
     onSnapshot(
@@ -96,7 +95,6 @@ const MapScreen = (): JSX.Element => {
     })();
   }, []);
 
-  const navigation = useNavigation();
   const handleRegionChangeComplete = (region: any) => {
     return;
   };
@@ -200,21 +198,32 @@ const MapScreen = (): JSX.Element => {
       .map((elem) => ({
         latitude: elem[1],
         longitude: elem[0],
-      }));
+      }));  
+
     data = reports.filter((elem) =>
       markers.some(
         (marker) => marker.latitude == elem.lat && marker.longitude == elem.lng
       )
     );
 
-    console.log(data.length);
+    data = data.map(ele => {
+      if (typeof ele.timestamp != 'string') ele.timestamp = ele.timestamp.toDate().toISOString().slice(0,10);
+      return ele;
+    })
+
+    setSelectedReports(data);
   };
   const handleOnMarkerPress = async (marker: any, report: any) => {
     await setLocationClick([report["latitude"], report["longitude"]]);
     toggleModal();
-    const data = [report]
-    console.log(data.length);
     
+    const temp = reports.filter((elem) => report["latitude"] == elem.lat && report["longitude"] == elem.lng);
+    
+    const data = temp.map(ele => {
+      if (typeof ele.timestamp != 'string') ele.timestamp = ele.timestamp.toDate().toISOString().slice(0,10);
+      return ele;
+    });
+    setSelectedReports(data);
   };
   return (
     <>
@@ -276,7 +285,7 @@ const MapScreen = (): JSX.Element => {
             <CustomButton
               label="View Detail"
               onPress={() => {
-                navigation.navigate("ViewArea", locationClick);
+                navigation.navigate("ViewArea", {data: selectedReports});
               }}
             />
             <CustomButton label="Close" onPress={toggleModal} />
