@@ -48,6 +48,7 @@ Maybe you can mention me or this repo in the acknowledgements too
   - [:grey\_question: Future Work](#grey_question-future-work)
   - [:handshake: Contact](#handshake-contact)
   - [:gem: Acknowledgements](#gem-acknowledgements)
+  - [:movie\_camera: Demo](#movie_camera-demo)
 
   
 
@@ -61,6 +62,24 @@ You would only need to download [Expo Go](https://expo.dev/) from your phone (An
 Then use Expo Go to scan the QR Code [here](https://expo.dev/@khasang12/mobile?serviceType=classic&distribution=expo-go). Type "abc@gmail.com" as email and "123456" as password to get authenticated.
 
 Voilà, Welcome to Pollunite. Please enjoy our app and tell us about your feelings !!
+
+<!-- Color Reference -->
+### :art: Color Reference
+
+| Color             | Hex                                                                |
+| ----------------- | ------------------------------------------------------------------ |
+| Primary Color | ![#4CAF50](https://via.placeholder.com/10/4CAF50?text=+) #4CAF50 |
+| Secondary Color | ![#1D192B](https://via.placeholder.com/10/1D192B?text=+) #1D192B |
+| Accent Color | ![#E8DEF8](https://via.placeholder.com/10/E8DEF8?text=+) #E8DEF8 |
+| Text Color | ![#EEEEEE](https://via.placeholder.com/10/EEEEEE?text=+) #EEEEEE |
+
+
+<!-- Env Variables -->
+### :key: Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`GOOGLE_API_KEY` (https://developers.google.com/maps/documentation/javascript/get-api-key)
 
 <!-- TechStack -->
 ### :space_invader: Tech Stack
@@ -86,30 +105,28 @@ Voilà, Welcome to Pollunite. Please enjoy our app and tell us about your feelin
 <!-- Features -->
 ### :dart: Features
 
-- Pollution Map
-- GPS and Cluster Navigation
-- Pollution Report
-- View Area Detail
-- Join Area
-- Event, Donations
-
-<!-- Color Reference -->
-### :art: Color Reference
-
-| Color             | Hex                                                                |
-| ----------------- | ------------------------------------------------------------------ |
-| Primary Color | ![#4CAF50](https://via.placeholder.com/10/4CAF50?text=+) #4CAF50 |
-| Secondary Color | ![#1D192B](https://via.placeholder.com/10/1D192B?text=+) #1D192B |
-| Accent Color | ![#E8DEF8](https://via.placeholder.com/10/E8DEF8?text=+) #E8DEF8 |
-| Text Color | ![#EEEEEE](https://via.placeholder.com/10/EEEEEE?text=+) #EEEEEE |
+#### Pollution Map
 
 
-<!-- Env Variables -->
-### :key: Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file
 
-`GOOGLE_API_KEY` (https://developers.google.com/maps/documentation/javascript/get-api-key)
+
+
+#### GPS and Cluster Navigation
+
+
+#### Pollution Report
+
+
+
+#### View Area Detail
+
+
+#### Join Area
+
+
+
+#### Event, Donations
 
 
 
@@ -216,10 +233,48 @@ Project Link: [https://github.com/02david20/Pollunite](https://github.com/02davi
 <!-- Acknowledgments -->
 ## :gem: Acknowledgements
 
-Use this section to mention useful resources and libraries that you have used in your projects.
-
- - [Google Maps API](https://developers.google.com/maps)
+ - [Google Maps Platform API](https://developers.google.com/maps)
  - [Firebase Documentation](https://firebase.google.com/docs)
  - [React Native with Expo](https://expo.dev/)
 
  - [Readme Template](https://github.com/othneildrew/Best-README-Template)
+
+<!-- Features -->
+## :movie_camera: Demo
+
+To watch the full presentation, please visit our [Youtube video](https://www.youtube.com/watch?v=-FGYL7cKtRc&feature=youtu.be)
+
+### Pollution Map
+
+
+
+https://user-images.githubusercontent.com/80106348/227753217-c0097d28-5fb6-4c05-bb70-4f7e40185039.mp4
+
+
+
+### GPS and Cluster Navigation
+
+https://user-images.githubusercontent.com/80106348/227753002-f2fee933-22f5-4a87-9855-f4a4314e6626.mp4
+
+### Pollution Report
+
+
+https://user-images.githubusercontent.com/80106348/227753149-b1777b6a-84ab-410d-8919-72d1c0ab5ab4.mp4
+
+
+### View Area Detail
+
+
+https://user-images.githubusercontent.com/80106348/227753152-0dd06f22-d0bf-44e6-afee-4b325bb113b9.mp4
+
+
+### Join Area
+
+https://user-images.githubusercontent.com/80106348/227753155-af7a2763-9e3d-4ff8-b025-5d9707df4c67.mp4
+
+
+### Event, Donations
+
+
+https://user-images.githubusercontent.com/80106348/227753158-bf93a25c-7c3b-4cc1-97ce-0b9386deb197.mp4
+
