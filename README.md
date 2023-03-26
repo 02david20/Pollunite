@@ -107,26 +107,17 @@ To run this project, you will need to add the following environment variables to
 
 #### Pollution Map
 
-
-
-
-
-
 #### GPS and Cluster Navigation
-
 
 #### Pollution Report
 
-
-
 #### View Area Detail
 
-
-#### Join Area
-
-
+#### Area Resolutions
 
 #### Event, Donations
+
+#### Profile
 
 
 
@@ -256,25 +247,25 @@ https://user-images.githubusercontent.com/80106348/227753217-c0097d28-5fb6-4c05-
 
 https://user-images.githubusercontent.com/80106348/227753002-f2fee933-22f5-4a87-9855-f4a4314e6626.mp4
 
-### Pollution Report
+### Pollution Report & Area Detail
 
 
 https://user-images.githubusercontent.com/80106348/227753149-b1777b6a-84ab-410d-8919-72d1c0ab5ab4.mp4
+ 
 
 
-### View Area Detail
 
+### Area Resolutions
 
 https://user-images.githubusercontent.com/80106348/227753152-0dd06f22-d0bf-44e6-afee-4b325bb113b9.mp4
 
 
-### Join Area
-
-https://user-images.githubusercontent.com/80106348/227753155-af7a2763-9e3d-4ff8-b025-5d9707df4c67.mp4
 
 
 ### Event, Donations
+https://user-images.githubusercontent.com/80106348/227753155-af7a2763-9e3d-4ff8-b025-5d9707df4c67.mp4
 
+### Profile
 
 https://user-images.githubusercontent.com/80106348/227753158-bf93a25c-7c3b-4cc1-97ce-0b9386deb197.mp4
 
