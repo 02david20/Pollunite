@@ -17,6 +17,8 @@ Maybe you can mention me or this repo in the acknowledgements too
   
    
 <h4>
+  <a href="https://expo.dev/accounts/davidhuynh/projects/pollunite/builds/23a7e354-999f-4516-b87c-9b17ae64f8b1">Android Distribution</a>
+    <span> · </span>
     <a href="https://expo.dev/@khasang12/mobile?serviceType=classic&distribution=expo-go">View Demo</a>
   <span> · </span>
     <a href="https://github.com/02david20/Pollunite">Documentation</a>
